@@ -144,16 +144,16 @@ When implementing a table page, ensure ALL these components are included:
 - [ ] Clear filters functionality
 
 ### ✅ Input Field Consistency (via Design System Bundle)
-- [ ] All inputs use `design-system-bundle` patterns
-- [ ] Validation styling from `design-system-bundle`
-- [ ] Error states from `design-system-bundle`
-- [ ] Success states from `design-system-bundle`
+- [ ] All inputs use \`design-system-bundle\` patterns
+- [ ] Validation styling from \`design-system-bundle\`
+- [ ] Error states from \`design-system-bundle\`
+- [ ] Success states from \`design-system-bundle\`
 
 ### ✅ Button & Action Consistency (via Design System Bundle)
-- [ ] Primary buttons use `design-system-bundle` patterns
-- [ ] Secondary actions use `design-system-bundle` patterns
-- [ ] Loading states from `design-system-bundle`
-- [ ] Hover effects from `design-system-bundle`
+- [ ] Primary buttons use \`design-system-bundle\` patterns
+- [ ] Secondary actions use \`design-system-bundle\` patterns
+- [ ] Loading states from \`design-system-bundle\`
+- [ ] Hover effects from \`design-system-bundle\`
 
 ### ✅ Layout Integration
 - [ ] Proper container structure
@@ -166,6 +166,106 @@ When implementing a table page, ensure ALL these components are included:
 - [ ] Empty states designed
 - [ ] Error handling in place
 - [ ] Success feedback patterns
+
+### 🔴 CRITICAL: Complete Implementation Dependencies
+
+**MANDATORY REQUIREMENTS** - Missing any of these will cause implementation failures:
+
+#### ✅ Icon Requirements
+- [ ] **Icon Import**: Add required icons to \`/src/components/icons.tsx\`
+- [ ] **Icon Source**: Import from \`@tabler/icons-react\`
+- [ ] **Icon Export**: Add to Icons export object
+- [ ] **Example Pattern**: \`import { IconFlask } from '@tabler/icons-react';\` → \`beaker: IconFlask\`
+
+#### ✅ Type Dependencies
+- [ ] **SearchParams Interface**: Ensure \`/src/types/table.ts\` exists with proper interface
+- [ ] **Required Interface**:
+  \`\`\`typescript
+  interface SearchParams {
+    page?: string;
+    per_page?: string;
+    sort?: string;
+    name?: string;
+    status?: string;
+    type?: string;
+    [key: string]: string | string[] | undefined;
+  }
+  \`\`\`
+
+#### ✅ Sidebar Translation Requirements
+- [ ] **English Translations**: Add navigation items to \`/src/locales/en.json\` in "Sidebar" section
+- [ ] **Spanish Translations**: Add corresponding items to \`/src/locales/es.json\` in "Sidebar" section
+- [ ] **Example Pattern**: 
+  - EN: \`"Formulations": "Formulations"\`
+  - ES: \`"Formulations": "Formulaciones"\`
+
+#### ✅ Common Translation Dependencies
+- [ ] **Status Translations**: Add to Common section in both locale files
+- [ ] **Required Common Translations**: \`yes\`, \`no\`, \`approved\`, \`not_approved\`
+- [ ] **Example Pattern**:
+  \`\`\`json
+  "Common": {
+    "yes": "Yes",
+    "no": "No", 
+    "approved": "Approved",
+    "not_approved": "Not Approved"
+  }
+  \`\`\`
+
+#### ✅ Navigation Integration
+- [ ] **Navigation Array**: Add new features to \`/src/constants/data.ts\` navItems array
+- [ ] **Required Properties**: 
+  \`\`\`typescript
+  {
+    title: string,
+    url: string,
+    icon: string,
+    isActive: boolean,
+    shortcut?: string,
+    items: any[]
+  }
+  \`\`\`
+
+### 🚨 Pre-Implementation Validation Checklist
+
+**Run these checks BEFORE starting table implementation:**
+
+#### File Structure Validation
+- [ ] Check if \`/src/components/icons.tsx\` exists and has proper structure
+- [ ] Verify \`/src/types/table.ts\` exists with SearchParams interface
+- [ ] Confirm both locale files exist: \`/src/locales/en.json\` and \`/src/locales/es.json\`
+- [ ] Validate \`/src/constants/data.ts\` has navItems array structure
+
+#### Translation Structure Validation
+- [ ] Verify "Sidebar" section exists in both locale files
+- [ ] Confirm "Common" section exists in both locale files with required status translations
+- [ ] Check translation key consistency between EN and ES files
+
+#### Icon System Validation
+- [ ] Confirm \`@tabler/icons-react\` is available as dependency
+- [ ] Verify Icons export object structure in \`icons.tsx\`
+- [ ] Test icon import pattern works with existing icons
+
+### 🎯 Post-Implementation Verification
+
+After completing table implementation, verify:
+
+#### Functional Verification
+- [ ] New navigation item appears in sidebar
+- [ ] Navigation item shows correct translated text in both languages
+- [ ] Icon displays correctly next to navigation item
+- [ ] Table page loads without TypeScript errors
+- [ ] SearchParams interface supports all query parameters used
+
+#### Translation Verification
+- [ ] Switch between EN/ES languages - all text translates properly
+- [ ] Status values (yes/no, approved/not_approved) display in correct language
+- [ ] No missing translation keys showing as literal strings
+
+#### Integration Verification
+- [ ] Navigation routing works correctly
+- [ ] Icon imports don't cause build errors
+- [ ] Type checking passes without SearchParams interface errors
 
 ## Implementation Success Metrics
 

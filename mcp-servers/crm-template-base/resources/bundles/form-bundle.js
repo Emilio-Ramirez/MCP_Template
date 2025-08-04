@@ -11,6 +11,9 @@ Comprehensive form implementation bundle providing 95%+ consistency across all f
 - **Type Safety**: Full TypeScript support with translation-aware validation
 - **i18n Ready**: Internationalization built into all patterns
 
+## Key UX Improvements
+- **Empty Number Field Defaults**: Changed all numeric defaults from 0 to undefined for better UX. Users can now directly type numbers without having to delete pre-filled zeros first. This prevents the awkward "01" → delete "0" workflow and provides a cleaner input experience across all number fields.
+
 ## Bundle Components
 This bundle includes ALL components needed for consistent form implementation:
 
@@ -94,7 +97,7 @@ export function SimpleFormComponent() {
   const form = useForm<FormData>({
     resolver: zodResolver(createFormSchema(t)),
     defaultValues: {
-      quantity: 1,
+      quantity: undefined, // Empty number field for better UX
       name: '',
       category: '',
       isActive: false,
@@ -220,8 +223,117 @@ export function SimpleFormComponent() {
 }
 \`\`\`
 
-#### Multi-Step Form Pattern
-Complex workflow system with step navigation, centralized state management, and progressive validation:
+#### Multi-Step Form Pattern (MANDATORY STRUCTURE)
+Complex workflow system with step navigation, centralized state management, and progressive validation following EXACT commercial request form pattern:
+
+**🔴 CRITICAL: Multi-Step Form Structure Pattern (MANDATORY)**
+
+### **Step Indicator Pattern - EXACT Implementation**
+Based on commercial-requests/components/new-request-form.tsx (lines 153-168):
+
+\`\`\`tsx
+{/* Simplified Step Header - EXACT PATTERN */}
+<div className="mt-6">
+  <div className="text-center space-y-2">
+    <div className="flex items-center justify-center space-x-3">
+      <h2 className="text-xl font-semibold">{steps[currentStep]?.name}</h2>
+      <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">
+        {currentStep + 1}/{totalSteps}
+      </span>
+    </div>
+    <div className="w-full max-w-md mx-auto bg-muted rounded-full h-2">
+      <div 
+        className="bg-primary h-2 rounded-full transition-all duration-300"
+        style={{ width: \`\${((currentStep + 1) / totalSteps) * 100}%\` }}
+      />
+    </div>
+  </div>
+</div>
+\`\`\`
+
+**CRITICAL PATTERN RULES:**
+1. **CENTERED DESIGN**: \`text-center\` - everything centered
+2. **INLINE TITLE + COUNTER**: \`flex items-center justify-center space-x-3\`
+3. **SIMPLE COUNTER FORMAT**: \`{currentStep + 1}/{totalSteps}\` (e.g., "1/8", NOT "Step 1 of 8")
+4. **NO DESCRIPTIONS**: Only title and counter, no step descriptions
+5. **CENTERED PROGRESS BAR**: \`max-w-md mx-auto\`
+
+### **Form Layout Pattern - EXACT Structure**
+\`\`\`tsx
+<PageContainer scrollable={true}>
+  <div className="flex flex-1 flex-col space-y-4">
+    {/* Page Header */}
+    <div className="flex items-start justify-between">
+      <Heading
+        title={t('create_form')}
+        description={t('create_form_description')}
+      />
+    </div>
+    <Separator />
+
+    {/* Form - NO OUTER CARD WRAPPER */}
+    <div className="mx-auto w-full max-w-6xl">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/* Step Indicator */}
+          <StepIndicator ... />
+          
+          {/* Current Step Content - Individual step cards */}
+          <div className="min-h-[400px]">
+            {renderCurrentStep()}
+          </div>
+          
+          {/* Navigation Buttons */}
+          <div className="flex justify-between pt-6 border-t">
+            {/* Buttons */}
+          </div>
+        </form>
+      </Form>
+    </div>
+  </div>
+</PageContainer>
+\`\`\`
+
+**CRITICAL LAYOUT RULES:**
+1. **SINGLE PAGE TITLE**: Only one title at page level, NO duplicate card titles
+2. **NO OUTER CARD WRAPPER**: Form content goes directly in div, not Card component
+3. **INDIVIDUAL STEP CARDS**: Each step renders its own Card component
+4. **NO CARD TITLE DUPLICATION**: Page header is the only title
+
+### **StepIndicator Interface Pattern (MANDATORY)**
+\`\`\`tsx
+interface StepIndicatorProps {
+  currentStep: number;
+  totalSteps: number;
+  stepLabels: string[];
+  className?: string; // MANDATORY for consistency
+}
+
+const StepIndicator = ({ currentStep, totalSteps, stepLabels, className }: StepIndicatorProps) => (
+  <div className={cn("mt-6", className)}>
+    <div className="text-center space-y-2">
+      <div className="flex items-center justify-center space-x-3">
+        <h2 className="text-xl font-semibold">{stepLabels[currentStep]}</h2>
+        <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">
+          {currentStep + 1}/{totalSteps}
+        </span>
+      </div>
+      <div className="w-full max-w-md mx-auto bg-muted rounded-full h-2">
+        <div 
+          className="bg-primary h-2 rounded-full transition-all duration-300"
+          style={{ width: \`\${((currentStep + 1) / totalSteps) * 100}%\` }}
+        />
+      </div>
+    </div>
+  </div>
+)
+\`\`\`
+
+**CRITICAL INTERFACE RULES:**
+1. **cn() UTILITY**: ALWAYS use \`cn("mt-6", className)\` for root container
+2. **NO DESCRIPTIONS**: stepDescriptions parameter not needed
+3. **SIMPLE ARRAYS**: stepLabels as simple string array
+4. **CONSISTENT STYLING**: Same className pattern as commercial requests
 
 \`\`\`typescript
 'use client'
@@ -233,6 +345,7 @@ import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
+import { cn } from '@/lib/utils'
 
 // Multi-step schema with step-specific validation
 const createMultiStepSchema = (t: any) => z.object({
@@ -266,31 +379,42 @@ const useStepNavigation = (totalSteps: number) => {
   return { currentStep, nextStep, prevStep, goToStep, totalSteps }
 }
 
-// Stepper component
-const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) => (
-  <div className="flex items-center justify-center space-x-4 mb-8">
-    {Array.from({ length: totalSteps }, (_, index) => (
-      <div key={index} className="flex items-center">
-        <div className={\`w-8 h-8 rounded-full flex items-center justify-center \${
-          index <= currentStep 
-            ? 'bg-primary text-primary-foreground' 
-            : 'bg-muted text-muted-foreground'
-        }\`}>
-          {index + 1}
-        </div>
-        {index < totalSteps - 1 && (
-          <div className={\`w-12 h-1 \${
-            index < currentStep ? 'bg-primary' : 'bg-muted'
-          }\`} />
-        )}
+// MANDATORY StepIndicator component following commercial request pattern
+const StepIndicator = ({ currentStep, totalSteps, stepLabels, className }: {
+  currentStep: number;
+  totalSteps: number;
+  stepLabels: string[];
+  className?: string;
+}) => (
+  <div className={cn("mt-6", className)}>
+    <div className="text-center space-y-2">
+      <div className="flex items-center justify-center space-x-3">
+        <h2 className="text-xl font-semibold">{stepLabels[currentStep]}</h2>
+        <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">
+          {currentStep + 1}/{totalSteps}
+        </span>
       </div>
-    ))}
+      <div className="w-full max-w-md mx-auto bg-muted rounded-full h-2">
+        <div 
+          className="bg-primary h-2 rounded-full transition-all duration-300"
+          style={{ width: \`\${((currentStep + 1) / totalSteps) * 100}%\` }}
+        />
+      </div>
+    </div>
   </div>
 )
 
 export function MultiStepFormComponent() {
   const t = useTranslations('Forms')
+  const router = useRouter()
   const { currentStep, nextStep, prevStep, totalSteps } = useStepNavigation(3)
+  
+  // Step labels - MANDATORY simple array
+  const stepLabels = [
+    t('basic_information'),
+    t('additional_information'), 
+    t('preferences')
+  ]
   
   const form = useForm<MultiStepFormData>({
     resolver: zodResolver(createMultiStepSchema(t)),
@@ -323,18 +447,16 @@ export function MultiStepFormComponent() {
     try {
       // Final submission logic
       toast.success(t('success_message'), { icon: <IconCheck /> })
+      router.push('/success-redirect')
     } catch (error) {
       toast.error(t('error_message'))
     }
   }
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
-        
-        {/* Step 1: Basic Information */}
-        {currentStep === 0 && (
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 0:
+        return (
           <Card>
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -367,10 +489,9 @@ export function MultiStepFormComponent() {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {/* Step 2: Additional Information */}
-        {currentStep === 1 && (
+        )
+      case 1:
+        return (
           <Card>
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -403,10 +524,9 @@ export function MultiStepFormComponent() {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {/* Step 3: Preferences */}
-        {currentStep === 2 && (
+        )
+      case 2:
+        return (
           <Card>
             <CardContent className="pt-6">
               <div className="space-y-4">
@@ -441,27 +561,64 @@ export function MultiStepFormComponent() {
               </div>
             </CardContent>
           </Card>
-        )}
+        )
+      default:
+        return null
+    }
+  }
 
-        {/* Navigation buttons */}
-        <div className="flex gap-4">
-          {currentStep > 0 && (
-            <Button type="button" variant="outline" onClick={prevStep}>
-              {t('previous')}
-            </Button>
-          )}
-          {currentStep < totalSteps - 1 ? (
-            <Button type="button" onClick={handleNext}>
-              {t('next')}
-            </Button>
-          ) : (
-            <Button type="submit" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? t('saving') : t('submit')}
-            </Button>
-          )}
+  return (
+    <PageContainer scrollable={true}>
+      <div className="flex flex-1 flex-col space-y-4">
+        {/* Page Header - SINGLE TITLE ONLY */}
+        <div className="flex items-start justify-between">
+          <Heading
+            title={t('create_multi_step_form')}
+            description={t('create_multi_step_form_description')}
+          />
         </div>
-      </form>
-    </Form>
+        <Separator />
+
+        {/* Form - NO OUTER CARD WRAPPER */}
+        <div className="mx-auto w-full max-w-6xl">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* MANDATORY Step Indicator */}
+              <StepIndicator 
+                currentStep={currentStep} 
+                totalSteps={totalSteps} 
+                stepLabels={stepLabels}
+              />
+              
+              {/* Current Step Content - Individual step cards */}
+              <div className="min-h-[400px]">
+                {renderCurrentStep()}
+              </div>
+              
+              {/* Navigation Buttons */}
+              <div className="flex justify-between pt-6 border-t">
+                <div className="flex gap-4">
+                  {currentStep > 0 && (
+                    <Button type="button" variant="outline" onClick={prevStep}>
+                      {t('previous')}
+                    </Button>
+                  )}
+                  {currentStep < totalSteps - 1 ? (
+                    <Button type="button" onClick={handleNext}>
+                      {t('next')}
+                    </Button>
+                  ) : (
+                    <Button type="submit" disabled={form.formState.isSubmitting}>
+                      {form.formState.isSubmitting ? t('saving') : t('submit')}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </div>
+    </PageContainer>
   )
 }
 \`\`\`
@@ -491,6 +648,28 @@ export function MultiStepFormComponent() {
     </FormItem>
   )}
 />
+\`\`\`
+
+#### Number Field Best Practices (MANDATORY UX PATTERN)
+\`\`\`typescript
+// CORRECT: Use undefined defaults for number fields
+const form = useForm<FormData>({
+  resolver: zodResolver(createFormSchema(t)),
+  defaultValues: {
+    quantity: undefined,        // ✅ Empty field - user can type directly
+    percentage: undefined,      // ✅ No awkward "01" → delete "0" workflow
+    weight: undefined,          // ✅ Clean input experience
+    price: undefined,           // ✅ Better UX across all numeric inputs
+    // ... other fields
+  },
+})
+
+// This applies to ALL numeric fields in multi-step forms:
+// - Raw Materials step: quantities, percentages, production values
+// - Mix Components step: base quantities
+// - Process Parameters step: RPM, percentages, weights, prices  
+// - Quality Properties step: measurements, impact values, hours
+// - Header Information step: time, temperature
 \`\`\`
 
 #### Advanced Input Patterns
@@ -575,7 +754,7 @@ const form = useForm<FormData>({
   defaultValues: {
     name: '',
     email: '',
-    quantity: 1,
+    quantity: undefined, // Empty number field for better UX
     description: '',
     isActive: false,
   },
@@ -732,6 +911,86 @@ const handleNext = async () => {
 }
 \`\`\`
 
+## 🔴 CRITICAL MANDATORY PATTERNS (PREVENT INCONSISTENCIES)
+
+### **Multi-Step Form Structure - EXACT IMPLEMENTATION REQUIRED**
+
+**⚠️ THESE PATTERNS ARE MANDATORY TO PREVENT IMPLEMENTATION INCONSISTENCIES:**
+
+#### **1. Step Indicator Pattern (EXACT)**
+```tsx
+// EXACT pattern from commercial-requests form - DO NOT MODIFY
+<div className="mt-6">
+  <div className="text-center space-y-2">
+    <div className="flex items-center justify-center space-x-3">
+      <h2 className="text-xl font-semibold">{stepLabels[currentStep]}</h2>
+      <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">
+        {currentStep + 1}/{totalSteps}
+      </span>
+    </div>
+    <div className="w-full max-w-md mx-auto bg-muted rounded-full h-2">
+      <div 
+        className="bg-primary h-2 rounded-full transition-all duration-300"
+        style={{ width: \`\${((currentStep + 1) / totalSteps) * 100}%\` }}
+      />
+    </div>
+  </div>
+</div>
+```
+
+#### **2. Form Layout Pattern (EXACT)**
+```tsx
+// EXACT layout pattern - NO OUTER CARD WRAPPER for multi-step
+<PageContainer scrollable={true}>
+  <div className="flex flex-1 flex-col space-y-4">
+    {/* SINGLE PAGE TITLE ONLY */}
+    <div className="flex items-start justify-between">
+      <Heading title={t('create_form')} description={t('create_form_description')} />
+    </div>
+    <Separator />
+
+    {/* NO OUTER CARD WRAPPER - Form content directly */}
+    <div className="mx-auto w-full max-w-6xl">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <StepIndicator currentStep={currentStep} totalSteps={totalSteps} stepLabels={stepLabels} />
+          <div className="min-h-[400px]">{renderCurrentStep()}</div>
+          <div className="flex justify-between pt-6 border-t">{/* Navigation buttons */}</div>
+        </form>
+      </Form>
+    </div>
+  </div>
+</PageContainer>
+```
+
+#### **3. StepIndicator Interface (MANDATORY)**
+```tsx
+interface StepIndicatorProps {
+  currentStep: number;
+  totalSteps: number;
+  stepLabels: string[];     // Simple string array - NO step descriptions
+  className?: string;       // MANDATORY for consistency
+}
+
+// ALWAYS use cn() utility with "mt-6" base
+const StepIndicator = ({ currentStep, totalSteps, stepLabels, className }: StepIndicatorProps) => (
+  <div className={cn("mt-6", className)}>
+    {/* EXACT pattern implementation */}
+  </div>
+)
+```
+
+### **🚨 CRITICAL RULES TO PREVENT INCONSISTENCIES:**
+
+1. **SINGLE PAGE TITLE**: Only one title at page level - NO duplicate card titles in multi-step
+2. **NO OUTER CARD WRAPPER**: Multi-step forms use div wrapper, NOT Card component
+3. **INDIVIDUAL STEP CARDS**: Each step renders its own Card → CardContent
+4. **CENTERED DESIGN**: Step indicator uses `text-center` - everything centered
+5. **SIMPLE COUNTER FORMAT**: `{currentStep + 1}/{totalSteps}` (e.g., "1/8") - NOT "Step 1 of 8"
+6. **NO STEP DESCRIPTIONS**: Only title and counter - no additional descriptions
+7. **cn() UTILITY**: ALWAYS use `cn("mt-6", className)` for StepIndicator
+8. **FOLLOW COMMERCIAL REQUEST PATTERN**: Use the EXACT pattern, don't create variations
+
 ## Implementation Checklist
 
 When implementing a form, ensure ALL these components are included:
@@ -741,7 +1000,8 @@ When implementing a form, ensure ALL these components are included:
 - [ ] Standard layout: div.flex.flex-1.flex-col.space-y-4
 - [ ] Heading component with title and description
 - [ ] Separator between heading and form
-- [ ] Card wrapper with proper className="mx-auto w-full"
+- [ ] **Simple Forms**: Card wrapper with className="mx-auto w-full"
+- [ ] **Multi-Step Forms**: div wrapper with className="mx-auto w-full max-w-6xl" (NO outer Card)
 
 ### ✅ Card Structure (UNIFIED STANDARD)
 - [ ] CardHeader with CardTitle.text-left.text-2xl.font-bold
@@ -785,12 +1045,21 @@ When implementing a form, ensure ALL these components are included:
 - [ ] Error: toast.error(t('error_message'))
 - [ ] Sonner toast library implementation
 
-### ✅ Multi-Step Specific (if applicable)
+### ✅ Multi-Step Specific (MANDATORY PATTERNS)
+- [ ] **EXACT StepIndicator Pattern**: Use commercial request pattern with centered design and simple counter
+- [ ] **NO Outer Card Wrapper**: Form content goes directly in div, NOT Card component  
+- [ ] **Individual Step Cards**: Each step renders Card → CardContent (no headers)
+- [ ] **Single Page Title**: Only page header title, NO duplicate card titles
+- [ ] **stepLabels Array**: Simple string array, NO step descriptions
+- [ ] **cn() Utility**: ALWAYS use `cn("mt-6", className)` in StepIndicator
+- [ ] **Progress Bar**: Centered with `max-w-md mx-auto`
+- [ ] **Simple Counter**: `{currentStep + 1}/{totalSteps}` format
 - [ ] useStepNavigation hook for step management
-- [ ] StepIndicator component with progress visualization
 - [ ] Step validation with form.trigger()
 - [ ] useRequestForm for centralized state management
-- [ ] Card → CardContent structure per step
+- [ ] `min-h-[400px]` for step content container
+- [ ] `space-y-8` for form sections
+- [ ] `pt-6 border-t` for navigation button container
 
 ### ✅ Layout & Responsive Design
 - [ ] space-y-6 for form sections
@@ -923,7 +1192,7 @@ export default function SimpleFormPage() {
     resolver: zodResolver(createFormSchema(t)),
     mode: 'onChange',
     defaultValues: {
-      quantity: 1,
+      quantity: undefined, // Empty number field for better UX
       name: '',
       category: '',
       isActive: false,
@@ -1105,7 +1374,7 @@ import * as z from 'zod'
 
 // Simple form schema
 export const createSimpleFormSchema = (t: any) => z.object({
-  // Number inputs FIRST
+  // Number inputs FIRST (use undefined defaults for better UX)
   quantity: z.coerce.number().min(1, t('validation.quantity_required')),
   price: z.coerce.number().min(0.01, t('validation.price_required')),
   
@@ -1184,6 +1453,7 @@ export const StepIndicator = ({ currentStep, totalSteps, stepLabels }: StepIndic
 ## Best Practices
 - **Bundle-First Approach**: Always use complete form bundle patterns
 - **Field Organization**: MANDATORY Number → Text → Select → Boolean → Textarea order
+- **Number Field Defaults**: ALWAYS use undefined defaults for number inputs to prevent awkward "01" → delete "0" workflow
 - **Validation**: Real-time validation with translation-aware messages
 - **Consistency**: 100% consistent structure across all forms
 - **Type Safety**: Full TypeScript support with proper type inference
@@ -1192,15 +1462,29 @@ export const StepIndicator = ({ currentStep, totalSteps, stepLabels }: StepIndic
 - **State Management**: Centralized state for multi-step forms
 - **Error Handling**: Consistent toast notifications
 
-## Common Mistakes to Avoid
+## Common Mistakes to Avoid (PREVENT INCONSISTENCIES)
+
+### **🔴 CRITICAL: Multi-Step Form Mistakes**
+- **❌ Wrong Step Indicator**: Creating custom step indicators instead of using EXACT commercial request pattern
+- **❌ Card Title Duplication**: Adding CardTitle to individual steps (page header is the ONLY title)
+- **❌ Outer Card Wrapper**: Wrapping multi-step form in Card component (use div wrapper only)
+- **❌ Complex Step Descriptions**: Adding descriptions to steps (use simple title + counter only)
+- **❌ Wrong Counter Format**: Using "Step 1 of 8" instead of "1/8"
+- **❌ Left-Aligned Step Indicator**: Not using `text-center` for centered design
+- **❌ Missing cn() Utility**: Not using `cn("mt-6", className)` in StepIndicator
+- **❌ Wrong Progress Bar**: Not using `max-w-md mx-auto` for centered progress bar
+
+### **General Form Mistakes**
 - **Field Order**: Breaking mandatory field organization pattern
+- **Number Field Defaults**: Using 0 or other hardcoded defaults instead of undefined (causes poor UX)
 - **FormDescription**: Adding FormDescription components (remove all)
 - **Translation Functions**: Using translation functions for dropdown options (use static)
 - **Validation Mode**: Not setting mode: 'onChange' for real-time feedback
 - **Required Indicators**: Missing asterisks (*) on required fields
 - **Button Order**: Wrong order (Submit first, Cancel second)
-- **Multi-Step Structure**: Adding headers to individual steps (use Card → CardContent only)
 - **State Fragmentation**: Not using centralized form state for multi-step
+- **Missing Imports**: Forgetting to import `cn` utility from `@/lib/utils`
+- **Wrong Container Sizing**: Using wrong max-width for multi-step (`max-w-6xl` required)
 
 ## Form Bundle Benefits Achieved
 - **95%+ Consistency**: Standardized form infrastructure across all implementations
@@ -1210,6 +1494,30 @@ export const StepIndicator = ({ currentStep, totalSteps, stepLabels }: StepIndic
 - **Multi-Step Support**: Complex workflow system with step validation
 - **Type Safety**: Full TypeScript support with translation-aware validation
 - **i18n Ready**: Internationalization built into all patterns
+
+---
+
+## 🎯 CRITICAL UPDATE: Mandatory Multi-Step Patterns Added
+
+**This update adds the EXACT multi-step form patterns that were missing and causing implementation inconsistencies:**
+
+### **✅ ADDED: Critical Missing Patterns**
+1. **Step Indicator Pattern (EXACT)** - Based on commercial-requests/components/new-request-form.tsx
+2. **Form Layout Pattern (EXACT)** - NO outer card wrapper, single page title structure  
+3. **StepIndicator Interface (MANDATORY)** - Including cn() utility usage and className prop
+4. **Critical Pattern Rules** - 8 mandatory rules to prevent inconsistencies
+5. **Updated Implementation Checklist** - With specific multi-step requirements
+6. **Enhanced Common Mistakes** - Specific multi-step form mistakes to avoid
+
+### **🔴 KEY REQUIREMENTS TO FOLLOW EXACTLY:**
+- **CENTERED DESIGN**: `text-center` for all step indicator content
+- **SIMPLE COUNTER**: `{currentStep + 1}/{totalSteps}` format (e.g., "1/8")
+- **NO OUTER CARD**: Multi-step forms use div wrapper, not Card component
+- **SINGLE TITLE**: Only page header title, no duplicate card titles
+- **cn() UTILITY**: Always use `cn("mt-6", className)` in StepIndicator
+- **FOLLOW COMMERCIAL REQUEST PATTERN**: Use the EXACT pattern, don't create variations
+
+**These patterns are now MANDATORY to prevent future implementation inconsistencies. Follow the commercial request form pattern EXACTLY.**
 
 ---
 
