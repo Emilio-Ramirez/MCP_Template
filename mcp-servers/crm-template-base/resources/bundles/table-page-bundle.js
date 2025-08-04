@@ -30,6 +30,9 @@ Complete implementation bundle for table pages with breakthrough patterns achiev
 ### Breakthrough Innovation
 Creates a hidden virtual search column that concatenates all searchable fields into one searchable string, enabling 95%+ code reusability across all table implementations.
 
+#### CRITICAL: Column ID Consistency Rule
+**MANDATORY REQUIREMENT**: The virtual search column \`id\` MUST match the server-side search parameter name. Use either \`'name'\` or \`'search'\`, but maintain internal consistency within each table implementation.
+
 ### Technical Implementation
 ```typescript
 // Virtual Search Column Pattern

@@ -115,7 +115,7 @@ export const RESOURCE_MANIFEST = [
   {
     uri: 'crm-base://components/universal-table-search-pattern',
     name: 'Universal Table Search Pattern',
-    description: 'Revolutionary virtual column search pattern enabling multi-field searching with 95%+ code reusability',
+    description: 'Revolutionary virtual column search pattern enabling multi-field searching with 95%+ code reusability. CRITICAL: Includes mandatory column ID consistency rules',
     mimeType: 'text/markdown',
     path: 'components/universal-table-search-pattern.js'
   },

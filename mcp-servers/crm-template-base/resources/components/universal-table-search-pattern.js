@@ -8,11 +8,15 @@ Virtual search column that concatenates multiple fields into a searchable string
 
 ## Implementation
 
-### Virtual Search Column Pattern
+## Column ID Consistency (CRITICAL)
+
+**MANDATORY RULE**: The virtual search column \`id\` MUST match the server-side search parameter name.
+
+### Approach A: Using 'name' (Recommended)
 \`\`\`typescript
-// Add as first column in table definition
+// Virtual column
 {
-  id: 'name', // or 'search' for consistency
+  id: 'name', // ← Must match server parameter
   accessorFn: (row) => \`\${row.field1} \${row.field2} \${row.field3 || ''}\`,
   header: () => null,
   cell: () => null,
@@ -27,7 +31,55 @@ Virtual search column that concatenates multiple fields into a searchable string
   enableColumnFilter: true,
   size: 0
 }
+
+// columnVisibility
+initialState: {
+  columnVisibility: {
+    name: false // ← Must match column id
+  }
+}
+
+// Server-side
+const search = searchParamsCache.get('name'); // ← Must match column id
 \`\`\`
+
+### Approach B: Using 'search' (Alternative)
+\`\`\`typescript
+// Virtual column  
+{
+  id: 'search', // ← Must match server parameter
+  accessorFn: (row) => \`\${row.field1} \${row.field2} \${row.field3 || ''}\`,
+  header: () => null,
+  cell: () => null,
+  enableSorting: false,
+  enableHiding: true,
+  enableGlobalFilter: false,
+  meta: {
+    label: 'Search [items]',
+    placeholder: tTable('search_placeholder'),
+    variant: 'text'
+  },
+  enableColumnFilter: true,
+  size: 0
+}
+
+// columnVisibility
+initialState: {
+  columnVisibility: {
+    search: false // ← Must match column id
+  }
+}
+
+// Server-side
+const search = searchParamsCache.get('search'); // ← Must match column id
+\`\`\`
+
+**Why This Matters:**
+- Breaks search functionality if mismatched
+- Different tables can use different approaches
+- Internal consistency within each table is mandatory
+
+### Virtual Search Column Pattern
 
 ### Table Configuration
 \`\`\`typescript
@@ -128,11 +180,12 @@ export async function ItemListing() {
 - **Extensible**: Easy to add/remove searchable fields
 
 ## Best Practices
-1. **Field Selection**: Include all user-visible and searchable fields
-2. **Null Handling**: Use \`|| ''\` for optional fields
-3. **Column Hiding**: Always hide the virtual search column
-4. **Search Logic**: Maintain consistency between virtual column and server-side search
-5. **Parameter Naming**: Use consistent parameter names (\`name\` recommended)
+1. **Column ID Consistency**: MANDATORY - Virtual column \`id\` MUST match server-side search parameter name
+2. **Field Selection**: Include all user-visible and searchable fields
+3. **Null Handling**: Use \`|| ''\` for optional fields
+4. **Column Hiding**: Always hide the virtual search column
+5. **Search Logic**: Maintain consistency between virtual column and server-side search
+6. **Parameter Naming**: Use consistent parameter names (\`name\` or \`search\`)
 
 ## Success Metrics
 - 95%+ code reusability across different table types
