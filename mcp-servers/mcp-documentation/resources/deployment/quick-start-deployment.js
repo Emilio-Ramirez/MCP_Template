@@ -18,7 +18,7 @@ For comprehensive registration information including scope management and troubl
 cd ~/Development/Dreaming/mcp-servers
 
 # Run this single command to register ALL servers globally
-for server in crm-template-base ibso-business-units erp-business-patterns ibso-patterns agency-client-template mcp-documentation; do
+for server in crm-template-base ibso-business-units ibso-patterns agency-client-template mcp-documentation; do
   claude mcp add -s user "$server" node "$(pwd)/$server/index.js"
 done
 
@@ -30,7 +30,6 @@ claude mcp list
 All 6 servers should show as "✓ Connected":
 - crm-template-base
 - ibso-business-units (Vitracoat business model)
-- erp-business-patterns (form translation patterns)
 - ibso-patterns
 - agency-client-template
 - mcp-documentation
@@ -47,8 +46,6 @@ claude mcp add -s user crm-template-base node /path/to/mcp-servers/crm-template-
 # Business Units (Vitracoat implementation)
 claude mcp add -s user ibso-business-units node /path/to/mcp-servers/ibso-business-units/index.js
 
-# ERP Business Patterns (form systems)
-claude mcp add -s user erp-business-patterns node /path/to/mcp-servers/erp-business-patterns/index.js
 \`\`\`
 
 ### Infrastructure Servers
@@ -112,7 +109,7 @@ When you update server code:
 claude mcp remove server-name
 
 # Remove all IBSO servers (if needed)
-for server in crm-template-base ibso-business-units erp-business-patterns ibso-patterns agency-client-template mcp-documentation; do
+for server in crm-template-base ibso-business-units ibso-patterns agency-client-template mcp-documentation; do
   claude mcp remove "$server"
 done
 \`\`\`

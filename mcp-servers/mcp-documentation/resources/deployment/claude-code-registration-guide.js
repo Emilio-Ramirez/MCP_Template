@@ -67,7 +67,6 @@ claude mcp add -s project my-server node /path/to/server/index.js
 # Make servers available across all projects
 claude mcp add -s user crm-template-base node /path/to/crm-template-base/index.js
 claude mcp add -s user ibso-business-units node /path/to/ibso-business-units/index.js
-claude mcp add -s user erp-business-patterns node /path/to/erp-business-patterns/index.js
 \`\`\`
 
 ## Complete Registration Example
@@ -84,7 +83,6 @@ cd ~/Development/Dreaming/mcp-servers
 # Register all servers with user scope for cross-project access
 claude mcp add -s user crm-template-base node $(pwd)/crm-template-base/index.js
 claude mcp add -s user ibso-business-units node $(pwd)/ibso-business-units/index.js
-claude mcp add -s user erp-business-patterns node $(pwd)/erp-business-patterns/index.js
 claude mcp add -s user ibso-patterns node $(pwd)/ibso-patterns/index.js
 claude mcp add -s user agency-client-template node $(pwd)/agency-client-template/index.js
 claude mcp add -s user mcp-documentation node $(pwd)/mcp-documentation/index.js
@@ -98,7 +96,6 @@ claude mcp list
 # Expected output:
 # crm-template-base: node /path/to/crm-template-base/index.js - ✓ Connected
 # ibso-business-units: node /path/to/ibso-business-units/index.js - ✓ Connected
-# erp-business-patterns: node /path/to/erp-business-patterns/index.js - ✓ Connected
 # ... (all servers listed)
 \`\`\`
 

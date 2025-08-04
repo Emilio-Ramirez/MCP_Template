@@ -111,5 +111,54 @@ export const RESOURCE_MANIFEST = [
     description: 'Comprehensive collection of standardized design and code patterns for consistency',
     mimeType: 'text/markdown',
     path: 'patterns/unified-pattern-library.js'
+  },
+  {
+    uri: 'crm-base://components/universal-table-search-pattern',
+    name: 'Universal Table Search Pattern',
+    description: 'Revolutionary virtual column search pattern enabling multi-field searching with 95%+ code reusability',
+    mimeType: 'text/markdown',
+    path: 'components/universal-table-search-pattern.js'
+  },
+  {
+    uri: 'crm-base://components/hybrid-datatable-pattern',
+    name: 'Hybrid DataTable Pattern', 
+    description: 'Advanced Shadcn + TanStack Table combination with row click modals and integrated export functionality',
+    mimeType: 'text/markdown',
+    path: 'components/hybrid-datatable-pattern.js'
+  },
+  {
+    uri: 'crm-base://architecture/table-architecture-types',
+    name: 'Table Architecture Types',
+    description: 'Decision matrix for Standalone vs Tabbed table patterns with architectural constraints and use case guidelines',
+    mimeType: 'text/markdown',
+    path: 'architecture/table-architecture-types.js'
+  },
+  {
+    uri: 'crm-base://operations/server-side-table-integration',
+    name: 'Server-Side Table Integration',
+    description: 'Complete nuqs and searchParamsCache integration pattern for server-side filtering with URL state management',
+    mimeType: 'text/markdown',
+    path: 'operations/server-side-table-integration.js'
+  },
+  {
+    uri: 'crm-base://bundles/design-system-bundle',
+    name: 'Design System Bundle - Shared UI Foundation',
+    description: 'Shared design system foundation that ALL other bundles reference - includes input patterns, button styles, colors, typography, spacing, and state management to ensure UI consistency',
+    mimeType: 'text/markdown',
+    path: 'bundles/design-system-bundle.js'
+  },
+  {
+    uri: 'crm-base://bundles/table-page-bundle',
+    name: 'Table Page Bundle - Complete Implementation Package',
+    description: 'Self-contained bundle with ALL components needed for consistent table implementation - includes simple and tabbed variants, search patterns, input styling, buttons, and state management',
+    mimeType: 'text/markdown',
+    path: 'bundles/table-page-bundle.js'
+  },
+  {
+    uri: 'crm-base://bundles/form-bundle',
+    name: 'Form Bundle - Complete Implementation Package',
+    description: 'Self-contained bundle with ALL components needed for consistent form implementation - includes simple and multi-step variants, validation patterns, input styling, buttons, and state management',
+    mimeType: 'text/markdown',
+    path: 'bundles/form-bundle.js'
   }
 ];

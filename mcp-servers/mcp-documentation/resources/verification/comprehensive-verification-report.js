@@ -265,7 +265,6 @@ Comprehensive Documentation System: ✅ OPERATIONAL
 
 ### MCP Server Resources
 - **crm-template-base**: 25+ resources (forms, components, patterns)
-- **erp-business-patterns**: 15+ resources (business logic, workflows)
 - **ibso-patterns**: 20+ resources (infrastructure, deployment)
 - **agency-client-template**: 18+ resources (client management)
 - **mcp-documentation**: 12+ resources (ecosystem documentation)

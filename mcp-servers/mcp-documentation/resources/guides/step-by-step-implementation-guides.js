@@ -57,7 +57,7 @@ npm install -g @modelcontextprotocol/sdk
 # - mcp://mcp-documentation/deployment/quick-start-deployment
 # - mcp://mcp-documentation/deployment/claude-code-registration-guide
 # Quick registration for all IBSO servers:
-for server in crm-template-base ibso-business-units erp-business-patterns ibso-patterns agency-client-template mcp-documentation; do
+for server in crm-template-base ibso-business-units ibso-patterns agency-client-template mcp-documentation; do
   claude mcp add -s user "$server" node "/path/to/mcp-servers/$server/index.js"
 done
 
