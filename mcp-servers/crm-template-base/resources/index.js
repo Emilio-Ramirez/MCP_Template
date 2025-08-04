@@ -22,7 +22,10 @@ export const resources = {
   'operations/server-side-table-integration': () => loadResource('operations/server-side-table-integration.js'),
   'reference/definitive-reference-implementation': () => loadResource('reference/definitive-reference-implementation.js'),
   'patterns/unified-pattern-library': () => loadResource('patterns/unified-pattern-library.js'),
+  'bundles/chat-page-bundle': () => loadResource('bundles/chat-page-bundle.js'),
   'bundles/design-system-bundle': () => loadResource('bundles/design-system-bundle.js'),
-  'bundles/table-page-bundle': () => loadResource('bundles/table-page-bundle.js'),
+  'bundles/dialog-bundle': () => loadResource('bundles/dialog-bundle.js'),
   'bundles/form-bundle': () => loadResource('bundles/form-bundle.js'),
+  'bundles/notification-page-bundle': () => loadResource('bundles/notification-page-bundle.js'),
+  'bundles/table-page-bundle': () => loadResource('bundles/table-page-bundle.js'),
 };

@@ -141,11 +141,25 @@ export const RESOURCE_MANIFEST = [
     path: 'operations/server-side-table-integration.js'
   },
   {
+    uri: 'crm-base://bundles/chat-page-bundle',
+    name: 'Chat Page Bundle - Complete Implementation Package',
+    description: 'Self-contained bundle with ALL components needed for consistent chat/messaging system implementation - includes split-panel design, message bubbles, role-based styling, real-time architecture, and notification integration achieving 95%+ consistency',
+    mimeType: 'text/markdown',
+    path: 'bundles/chat-page-bundle.js'
+  },
+  {
     uri: 'crm-base://bundles/design-system-bundle',
     name: 'Design System Bundle - Shared UI Foundation',
     description: 'Shared design system foundation that ALL other bundles reference - includes input patterns, button styles, colors, typography, spacing, and state management to ensure UI consistency',
     mimeType: 'text/markdown',
     path: 'bundles/design-system-bundle.js'
+  },
+  {
+    uri: 'crm-base://bundles/dialog-bundle',
+    name: 'Dialog Bundle - Complete Implementation Package',
+    description: 'Self-contained bundle with ALL components needed for consistent dialog/modal system implementation - includes confirmation, detail view, specialized dialogs with state management, animations, and accessibility achieving 95%+ consistency',
+    mimeType: 'text/markdown',
+    path: 'bundles/dialog-bundle.js'
   },
   {
     uri: 'crm-base://bundles/table-page-bundle',
@@ -160,5 +174,12 @@ export const RESOURCE_MANIFEST = [
     description: 'Self-contained bundle with ALL components needed for consistent form implementation - includes simple and multi-step variants, validation patterns, input styling, buttons, and state management',
     mimeType: 'text/markdown',
     path: 'bundles/form-bundle.js'
+  },
+  {
+    uri: 'crm-base://bundles/notification-page-bundle',
+    name: 'Notification Page Bundle - Complete Implementation Package',
+    description: 'Self-contained bundle with ALL components needed for consistent notification system implementation - includes toast, page, modal, card, and alert patterns with real-time handling and comprehensive state management',
+    mimeType: 'text/markdown',
+    path: 'bundles/notification-page-bundle.js'
   }
 ];
