@@ -64,6 +64,13 @@ export const RESOURCE_MANIFEST = [
     path: 'architecture/modular-ecosystem-architecture.js'
   },
   {
+    uri: 'mcp-meta://development/mcp-documentation-manager-agent',
+    name: 'MCP Documentation Manager Agent',
+    description: 'Agent decision flow, documentation patterns, and operational guidelines',
+    mimeType: 'text/markdown',
+    path: 'development/mcp-documentation-manager-agent.js'
+  },
+  {
     uri: 'mcp-meta://development/mcp-instruction-templates',
     name: 'MCP Work Instruction Templates',
     description: 'Standardized templates for requesting MCP work and ensuring compliance',

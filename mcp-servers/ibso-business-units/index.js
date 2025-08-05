@@ -4,7 +4,7 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { CallToolRequestSchema, ListResourcesRequestSchema, ListToolsRequestSchema, ReadResourceRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { serverConfig } from './config/server-config.js';
-import { resourceManifest } from './config/resource-manifest.js';
+// Auto-discover resources from resources/index.js
 import { resources } from './resources/index.js';
 import { prompts } from './prompts/index.js';
 import { ResponseBuilder } from './utils/response-builder.js';
@@ -52,14 +52,32 @@ class IBSOBusinessUnitsMCPServer {
     return markdownFiles;
   }
 
+  generateResourceName(resourcePath) {
+    // Convert path like 'vitracoat/business-workflows' to 'Vitracoat Business Workflows'
+    const parts = resourcePath.split('/');
+    return parts.map(part => 
+      part.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ')
+    ).join(' - ');
+  }
+
+  generateResourceDescription(resourcePath) {
+    // Generate description from path
+    const [folder, file] = resourcePath.split('/');
+    const fileWords = file.split('-').join(' ');
+    return `${fileWords.charAt(0).toUpperCase() + fileWords.slice(1)} for ${folder} business unit`;
+  }
+
   setupHandlers() {
     // List available resources
     this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
-      const jsResources = resourceManifest.resources.map(resource => ({
-        uri: resource.uri,
-        mimeType: resource.mimeType,
-        name: resource.name,
-        description: resource.description,
+      // Auto-generate resource list from resources/index.js
+      const autoResources = Object.keys(resources).map(resourcePath => ({
+        uri: `ibso-business://${resourcePath}`,
+        mimeType: 'text/markdown',
+        name: this.generateResourceName(resourcePath),
+        description: this.generateResourceDescription(resourcePath),
       }));
 
       const mdResources = Object.values(this.markdownResources).map(resource => ({
@@ -70,7 +88,7 @@ class IBSOBusinessUnitsMCPServer {
       }));
 
       return {
-        resources: [...jsResources, ...mdResources],
+        resources: [...autoResources, ...mdResources],
       };
     });
 

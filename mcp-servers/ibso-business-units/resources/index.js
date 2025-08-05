@@ -1,53 +1,34 @@
 // Resource loader for IBSO Business Units MCP Server
 import { resourceLoader } from '../utils/resource-loader.js';
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// Vitracoat project resources
-import vitracoatOverview from './vitracoat/overview.js';
-import vitracoatRequestForms from './vitracoat/request-forms.js';
-import vitracoatConfigurationPages from './vitracoat/configuration-pages.js';
-import vitracoatMicroProductionWorkflow from './vitracoat/micro-production-workflow.js';
-import vitracoatTestingProtocols from './vitracoat/testing-protocols.js';
-import vitracoatBusinessWorkflows from './vitracoat/business-workflows.js';
-import vitracoatLaboratoryBusinessRules from './vitracoat/laboratory-business-rules.js';
-import vitracoatConfigurationManagement from './vitracoat/configuration-management.js';
-import vitracoatTestingProtocolsQuality from './vitracoat/testing-protocols-quality.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// IBSO pattern resources
-import clientProjectStructure from './patterns/client-project-structure.js';
-import businessUnitIntegration from './patterns/business-unit-integration.js';
-import chemicalIndustryStandards from './patterns/chemical-industry-standards.js';
-
-// Documentation resources
-import projectSetupGuide from './docs/project-setup-guide.js';
-import deploymentStrategies from './docs/deployment-strategies.js';
-
-// Business documentation resources
-import enhancedBusinessDocumentation from './business/enhanced-business-documentation.js';
+// Function to load markdown files
+const loadMarkdown = (filePath) => {
+  return () => {
+    const fullPath = join(__dirname, filePath);
+    return readFileSync(fullPath, 'utf8');
+  };
+};
 
 // Resource mapping
 export const resources = {
-  // Vitracoat project resources
-  'vitracoat/overview': vitracoatOverview,
-  'vitracoat/request-forms': vitracoatRequestForms,
-  'vitracoat/configuration-pages': vitracoatConfigurationPages,
-  'vitracoat/micro-production-workflow': vitracoatMicroProductionWorkflow,
-  'vitracoat/testing-protocols': vitracoatTestingProtocols,
-  'vitracoat/business-workflows': vitracoatBusinessWorkflows,
-  'vitracoat/laboratory-business-rules': vitracoatLaboratoryBusinessRules,
-  'vitracoat/configuration-management': vitracoatConfigurationManagement,
-  'vitracoat/testing-protocols-quality': vitracoatTestingProtocolsQuality,
-  
-  // IBSO pattern resources
-  'patterns/client-project-structure': clientProjectStructure,
-  'patterns/business-unit-integration': businessUnitIntegration,
-  'patterns/chemical-industry-standards': chemicalIndustryStandards,
-  
-  // Documentation resources
-  'docs/project-setup-guide': projectSetupGuide,
-  'docs/deployment-strategies': deploymentStrategies,
-  
-  // Business documentation resources
-  'business/enhanced-business-documentation': enhancedBusinessDocumentation,
+  // Vitracoat project resources - 2 files with real data, others are placeholders
+  'vitracoat/overview': loadMarkdown('vitracoat/overview.md'),
+  'vitracoat/formulation-management': loadMarkdown('vitracoat/formulation-management.md'),
+  'vitracoat/raw-materials-management': loadMarkdown('vitracoat/raw-materials-management.md'),
+  'vitracoat/request-management': loadMarkdown('vitracoat/request-management.md'),
+  'vitracoat/users-management': loadMarkdown('vitracoat/users-management.md'),
+  'vitracoat/clients-management': loadMarkdown('vitracoat/clients-management.md'),
+  'vitracoat/system-configuration': loadMarkdown('vitracoat/system-configuration.md'),
+  'vitracoat/notifications': loadMarkdown('vitracoat/notifications.md'),
+  'vitracoat/messages': loadMarkdown('vitracoat/messages.md'),
+  'vitracoat/dashboard': loadMarkdown('vitracoat/dashboard.md'),
+  'vitracoat/auth': loadMarkdown('vitracoat/auth.md'),
 };
 
 // Export resource loader utility

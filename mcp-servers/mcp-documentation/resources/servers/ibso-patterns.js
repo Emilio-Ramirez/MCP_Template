@@ -1,49 +1,57 @@
 export default `# IBSO Patterns Server Documentation
 
-## Overview
-The IBSO Patterns server provides operational excellence patterns for infrastructure, deployment, monitoring, and security. These patterns represent proven solutions for managing enterprise-grade applications and services.
+## ⚠️ IMPORTANT NOTE
+**This server does NOT exist as a standalone MCP server.** The business strategy and domain knowledge patterns that would have been in this server are now part of the **ibso-business-units** server.
 
-## Server Architecture
-- **URI Scheme**: \`ibso-ops://\`
-- **Resources**: 5 operational excellence patterns
-- **Focus**: Infrastructure and operations
-- **Target**: DevOps teams and platform engineers
+## Migration Information
 
-## Resource Categories
+### Original Intent
+The IBSO Patterns server was intended to provide:
+- Business strategy and requirements documentation
+- System overviews and data structures
+- Process workflows and business logic
+- Domain knowledge patterns
 
-### Infrastructure
-- **Cost Optimization**: Cloud cost management strategies
-- **Terraform Deploy**: Infrastructure as Code patterns
+### Current Location
+All these patterns are now housed in:
+- **Server**: ibso-business-units
+- **URI Scheme**: \`ibso-business://\`
+- **Purpose**: Business strategy, domain knowledge, and industry-specific patterns
 
-### Deployment
-- **3-Minute Process**: Rapid deployment workflows
+## Resource Mapping
 
-### Monitoring
-- **Observability Stack**: Comprehensive monitoring solutions
+If you're looking for business patterns, they are organized in ibso-business-units as follows:
 
-### Security
-- **Compliance Framework**: Security and regulatory compliance
-
-## Getting Started
-
-### Quick Setup
-\`\`\`bash
-# Register the server with Claude Code (user scope for all projects)
-claude mcp add -s user ibso-patterns node /path/to/mcp-servers/ibso-patterns/index.js
-
-# Verify registration
-claude mcp list
+### Business Unit Structure
+\`\`\`
+ibso-business-units/
+└── resources/
+    └── [business-unit]/     # e.g., vitracoat/
+        ├── overview.md
+        ├── business-workflows.md
+        ├── configuration-management.md
+        └── [other-resources].md
 \`\`\`
 
-For complete deployment instructions:
-- **mcp://mcp-documentation/deployment/quick-start-deployment** - Deploy all servers in 2 minutes
-- **mcp://mcp-documentation/deployment/claude-code-registration-guide** - Detailed registration guide
+### Example Resources
+- \`ibso-business://vitracoat/overview\` - Chemical coating business overview
+- \`ibso-business://vitracoat/business-workflows\` - LWR, TLWR, VLWR workflows
+- \`ibso-business://vitracoat/configuration-management\` - System configuration
 
-## Key Features
-- Production-ready infrastructure patterns
-- Cost optimization strategies
-- Automated deployment workflows
-- Comprehensive monitoring and alerting
-- Security and compliance frameworks
+## Routing Guidelines
 
-This server provides the operational foundation for enterprise applications.`;
+When you need business strategy or domain patterns:
+1. Use **ibso-business-units** server
+2. Navigate to the appropriate business unit folder
+3. Access the specific resource needed
+
+## Technical Implementation
+For technical implementation patterns (HOW to build), use:
+- **Server**: crm-template-base
+- **Location**: /bundles/ directory
+- **Pattern**: Bundle architecture (design-system-bundle, table-page-bundle, form-bundle)
+
+## Summary
+- ❌ ibso-patterns server does NOT exist
+- ✅ Use ibso-business-units for business strategy and domain knowledge
+- ✅ Use crm-template-base for technical implementation patterns`;

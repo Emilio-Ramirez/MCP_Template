@@ -10,6 +10,7 @@ export const resources = {
   'servers/ibso-business-units': () => loadResource('servers/ibso-business-units.js'),
   'patterns/server-refactoring-guide': () => loadResource('patterns/server-refactoring-guide.js'),
   'development/mcp-best-practices': () => loadResource('development/mcp-best-practices.js'),
+  'development/mcp-documentation-manager-agent': () => loadResource('development/mcp-documentation-manager-agent.js'),
   'development/mcp-instruction-templates': () => loadResource('development/mcp-instruction-templates.js'),
   'integration/cross-server-patterns': () => loadResource('integration/cross-server-patterns.js'),
   'reference/cross-reference-system': () => loadResource('reference/cross-reference-system.js'),
