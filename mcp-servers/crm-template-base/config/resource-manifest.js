@@ -142,10 +142,17 @@ export const RESOURCE_MANIFEST = [
   },
   {
     uri: 'crm-base://bundles/chat-page-bundle',
-    name: 'Chat Page Bundle - Complete Implementation Package',
-    description: 'Self-contained bundle with ALL components needed for consistent chat/messaging system implementation - includes split-panel design, message bubbles, role-based styling, real-time architecture, and notification integration achieving 95%+ consistency',
+    name: 'Chat Bundle - Component-First Architecture',
+    description: 'Efficient chat/messaging implementation system organized by components for selective access. Claude Code can request specific patterns without loading unnecessary context',
     mimeType: 'text/markdown',
     path: 'bundles/chat-page-bundle.js'
+  },
+  {
+    uri: 'crm-base://chat-bundle/quick-reference',
+    name: 'Chat Bundle - Quick Reference',
+    description: 'Most common chat patterns cheat sheet with split-panel layouts, message bubbles, and real-time patterns',
+    mimeType: 'text/markdown',
+    path: 'chat-bundle/quick-reference.js'
   },
   {
     uri: 'crm-base://bundles/design-system-bundle',
@@ -156,17 +163,45 @@ export const RESOURCE_MANIFEST = [
   },
   {
     uri: 'crm-base://bundles/dialog-bundle',
-    name: 'Dialog Bundle - Complete Implementation Package',
-    description: 'Self-contained bundle with ALL components needed for consistent dialog/modal system implementation - includes confirmation, detail view, specialized dialogs with state management, animations, and accessibility achieving 95%+ consistency',
+    name: 'Dialog Bundle - Component-First Architecture',
+    description: 'Efficient dialog/modal implementation system organized by components for selective access. Claude Code can request specific patterns without loading unnecessary context',
     mimeType: 'text/markdown',
     path: 'bundles/dialog-bundle.js'
   },
   {
+    uri: 'crm-base://dialog-bundle/components/foundation-patterns',
+    name: 'Dialog Bundle - Foundation Patterns',
+    description: 'Core dialog foundation patterns with Radix UI integration, standard attributes, and base structure for 95%+ consistency',
+    mimeType: 'text/markdown',
+    path: 'dialog-bundle/components/foundation-patterns.js'
+  },
+  {
+    uri: 'crm-base://dialog-bundle/components/confirmation-dialogs',
+    name: 'Dialog Bundle - Confirmation Dialogs',
+    description: 'Complete confirmation dialog patterns for delete, block/unblock, and other critical actions with consistent styling',
+    mimeType: 'text/markdown',
+    path: 'dialog-bundle/components/confirmation-dialogs.js'
+  },
+  {
+    uri: 'crm-base://dialog-bundle/quick-reference',
+    name: 'Dialog Bundle - Quick Reference',
+    description: 'Most common dialog patterns cheat sheet with basic structures, imports, and CSS classes for quick implementation',
+    mimeType: 'text/markdown',
+    path: 'dialog-bundle/quick-reference.js'
+  },
+  {
     uri: 'crm-base://bundles/table-page-bundle',
-    name: 'Table Page Bundle - Complete Implementation Package',
-    description: 'Self-contained bundle with ALL components needed for consistent table implementation - includes simple and tabbed variants, search patterns, input styling, buttons, and state management',
+    name: 'Table Bundle - Component-First Architecture',
+    description: 'Efficient table implementation system organized by components for selective access. Claude Code can request specific patterns without loading unnecessary context',
     mimeType: 'text/markdown',
     path: 'bundles/table-page-bundle.js'
+  },
+  {
+    uri: 'crm-base://table-bundle/quick-reference',
+    name: 'Table Bundle - Quick Reference',
+    description: 'Most common table patterns cheat sheet with DataTable setup, search patterns, and column configurations',
+    mimeType: 'text/markdown',
+    path: 'table-bundle/quick-reference.js'
   },
   {
     uri: 'crm-base://bundles/form-bundle',
@@ -247,9 +282,16 @@ export const RESOURCE_MANIFEST = [
   },
   {
     uri: 'crm-base://bundles/notification-page-bundle',
-    name: 'Notification Page Bundle - Complete Implementation Package',
-    description: 'Self-contained bundle with ALL components needed for consistent notification system implementation - includes toast, page, modal, card, and alert patterns with real-time handling and comprehensive state management',
+    name: 'Notification Bundle - Component-First Architecture',
+    description: 'Efficient notification implementation system organized by components for selective access. Claude Code can request specific patterns without loading unnecessary context',
     mimeType: 'text/markdown',
     path: 'bundles/notification-page-bundle.js'
+  },
+  {
+    uri: 'crm-base://notification-bundle/quick-reference',
+    name: 'Notification Bundle - Quick Reference',
+    description: 'Most common notification patterns cheat sheet with toast, badges, and real-time notification patterns',
+    mimeType: 'text/markdown',
+    path: 'notification-bundle/quick-reference.js'
   }
 ];
