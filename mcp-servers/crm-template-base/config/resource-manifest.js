@@ -170,10 +170,80 @@ export const RESOURCE_MANIFEST = [
   },
   {
     uri: 'crm-base://bundles/form-bundle',
-    name: 'Form Bundle - Complete Implementation Package',
-    description: 'Self-contained bundle with ALL components needed for consistent form implementation - includes simple and multi-step variants, validation patterns, input styling, buttons, and state management',
+    name: 'Form Bundle - Component-First Architecture',
+    description: 'Efficient form implementation system organized by components for selective access. Claude Code can request specific patterns (inputs, buttons, validation) without loading unnecessary context',
     mimeType: 'text/markdown',
     path: 'bundles/form-bundle.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/page-structure',
+    name: 'Form Bundle - Page Structure Patterns',
+    description: 'Complete page structure patterns including PageContainer setup, heading patterns, and card wrapper structures for 100% form consistency',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/page-structure.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/input-patterns',
+    name: 'Form Bundle - Input Patterns',
+    description: 'Complete input field system with mandatory field organization, component structure, and advanced patterns for consistent form inputs',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/input-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/button-patterns',
+    name: 'Form Bundle - Button Patterns',
+    description: 'Unified button and action patterns with loading states, multi-step navigation, and consistent user experience across all forms',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/button-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/validation-patterns',
+    name: 'Form Bundle - Validation Patterns',
+    description: 'Unified validation system with translation-aware schema patterns, form configuration, and error handling for consistent validation',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/validation-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/layout-patterns',
+    name: 'Form Bundle - Layout Patterns',
+    description: 'Unified layout and spacing patterns ensuring responsive design and consistent spacing across all form implementations',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/layout-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/components/feedback-patterns',
+    name: 'Form Bundle - Feedback Patterns',
+    description: 'Unified feedback and state management patterns with consistent notifications, loading states, and success/error handling',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/components/feedback-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/templates/standalone-form',
+    name: 'Form Bundle - Standalone Form Template',
+    description: 'Complete single-step form template with direct validation and submission for simple forms with immediate processing',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/templates/standalone-form.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/templates/multi-step-form',
+    name: 'Form Bundle - Multi-Step Form Template',
+    description: 'Complete multi-step form template with step navigation, centralized state management, and progressive validation for complex workflows',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/templates/multi-step-form.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/templates/critical-patterns',
+    name: 'Form Bundle - Critical Mandatory Patterns',
+    description: 'MANDATORY patterns for 95%+ consistency - field organization, structure, validation, buttons, layout, and compliance checklist',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/templates/critical-patterns.js'
+  },
+  {
+    uri: 'crm-base://form-bundle/quick-reference',
+    name: 'Form Bundle - Quick Reference',
+    description: 'Most common form patterns cheat sheet with field order, standard structures, imports, and CSS classes for quick implementation',
+    mimeType: 'text/markdown',
+    path: 'form-bundle/quick-reference.js'
   },
   {
     uri: 'crm-base://bundles/notification-page-bundle',
