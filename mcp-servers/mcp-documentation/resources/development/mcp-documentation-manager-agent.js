@@ -161,6 +161,45 @@ The agent maintains its own documentation and updates it when:
 
 This ensures the agent remains synchronized with the ecosystem and provides consistent guidance.
 
+## 🚨 Error Documentation Protocol
+
+The agent MUST document all errors and mistakes encountered during operations:
+
+### Error Logging Requirements
+1. **Document Location**: `/mcp-servers/agent-errors.md` (root of MCP servers directory)
+2. **Document Creation**: Create file if it doesn't exist on first error
+3. **Error Format**: Each error entry should include:
+   - **Date/Time**: When the error occurred
+   - **Operation**: What the agent was trying to do
+   - **Error Type**: Classification of the mistake
+   - **Root Cause**: Why the error happened
+   - **Resolution**: How it was fixed
+   - **Prevention**: Steps to avoid in future
+
+### Error Entry Template
+\`\`\`markdown
+## [Date] - [Brief Error Description]
+**Operation**: [What was being attempted]
+**Error Type**: [routing/pattern/update/classification]
+**Root Cause**: [Why it happened]
+**Resolution**: [How it was fixed]
+**Prevention**: [Future avoidance strategy]
+**Affected Files**: [List of files involved]
+---
+\`\`\`
+
+### Common Error Categories
+- **Routing Errors**: Sent to wrong server
+- **Pattern Violations**: Didn't follow documentation patterns
+- **Update Failures**: Incomplete or broken updates
+- **Classification Mistakes**: Technical vs Business misidentification
+- **Process Errors**: Skipped mandatory steps
+
+### Learning Integration
+- Review `agent-errors.md` before major operations
+- Update agent decision flows based on recurring errors
+- Share learnings across ecosystem updates
+
 ## Success Metrics
 
 - ✅ Correct routing on first attempt

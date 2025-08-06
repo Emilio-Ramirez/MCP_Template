@@ -15,13 +15,21 @@ const loadMarkdown = (filePath) => {
   };
 };
 
+// Function to load JavaScript resource files
+const loadResource = (filePath) => {
+  return async () => {
+    const module = await import(join(__dirname, filePath));
+    return module.default;
+  };
+};
+
 // Resource mapping
 export const resources = {
   // Vitracoat project resources - 2 files with real data, others are placeholders
   'vitracoat/overview': loadMarkdown('vitracoat/overview.md'),
   'vitracoat/formulation-management': loadMarkdown('vitracoat/formulation-management.md'),
   'vitracoat/raw-materials-management': loadMarkdown('vitracoat/raw-materials-management.md'),
-  'vitracoat/request-management': loadMarkdown('vitracoat/request-management.md'),
+  'vitracoat/commercial-requests': loadResource('vitracoat/commercial-requests.js'),
   'vitracoat/users-management': loadMarkdown('vitracoat/users-management.md'),
   'vitracoat/clients-management': loadMarkdown('vitracoat/clients-management.md'),
   'vitracoat/system-configuration': loadMarkdown('vitracoat/system-configuration.md'),
