@@ -5,6 +5,7 @@
 ## 🎯 Core Philosophy: Good File Names = Explicit Metadata
 
 The MCP server system is designed around **simplicity** and **explicitness**:
+
 - Use descriptive file names in kebab-case
 - Organize files in business unit folders
 - Auto-generate metadata from file structure
@@ -15,12 +16,14 @@ The MCP server system is designed around **simplicity** and **explicitness**:
 **Clean and straightforward - no complex manifests needed.**
 
 ### Step 1: Create/Update Markdown Files
+
 - Create `.md` files in appropriate business unit folders (e.g., `resources/vitracoat/`)
 - Use descriptive, kebab-case file names: `business-workflows.md`, `configuration-management.md`
 - Write content directly in markdown format
 - No JavaScript wrappers or exports needed
 
 ### Step 2: Update Resource Index
+
 - Update `resources/index.js` to include the new resource
 - Use the `loadMarkdown()` function to load `.md` files
 - Follow the pattern: `'vitracoat/business-workflows': loadMarkdown('vitracoat/business-workflows.md')`
@@ -31,17 +34,21 @@ The MCP server system is designed around **simplicity** and **explicitness**:
 ## 📋 URI Convention Standards
 
 ### Resource URI Format
+
 ```
 ibso-business://{business-unit}/{resource-name}
 ```
 
 ### Auto-Generated Metadata
+
 The system automatically generates:
+
 - **Name**: `vitracoat/business-workflows` → "Vitracoat - Business Workflows"
 - **Description**: `vitracoat/business-workflows` → "Business workflows for vitracoat business unit"
 - **URI**: `vitracoat/business-workflows` → `ibso-business://vitracoat/business-workflows`
 
 ### Examples
+
 ```
 ibso-business://vitracoat/overview
 ibso-business://vitracoat/business-workflows
@@ -52,6 +59,7 @@ ibso-business://vitracoat/testing-protocols
 ## 🗂️ Simplified File Organization
 
 ### Standard MCP Server Directory Layout
+
 ```
 server-name/
 ├── config/
@@ -72,25 +80,30 @@ server-name/
 ```
 
 ### Resource Index Pattern
+
 ```javascript
 // resources/index.js
-import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 
 // Function to load markdown files
 const loadMarkdown = (filePath) => {
   return () => {
     const fullPath = join(__dirname, filePath);
-    return readFileSync(fullPath, 'utf8');
+    return readFileSync(fullPath, "utf8");
   };
 };
 
 // Resource mapping - clean and explicit
 export const resources = {
-  'vitracoat/overview': loadMarkdown('vitracoat/overview.md'),
-  'vitracoat/business-workflows': loadMarkdown('vitracoat/business-workflows.md'),
-  'vitracoat/configuration-management': loadMarkdown('vitracoat/configuration-management.md'),
+  "vitracoat/overview": loadMarkdown("vitracoat/overview.md"),
+  "vitracoat/business-workflows": loadMarkdown(
+    "vitracoat/business-workflows.md",
+  ),
+  "vitracoat/configuration-management": loadMarkdown(
+    "vitracoat/configuration-management.md",
+  ),
   // Add more resources following the same pattern
 };
 ```
@@ -98,6 +111,7 @@ export const resources = {
 ## ✅ File Naming Best Practices
 
 ### Use Descriptive, Kebab-Case Names
+
 - ✅ `business-workflows.md` - Clear, descriptive
 - ✅ `configuration-management.md` - Explicit purpose
 - ✅ `testing-protocols-quality.md` - Specific and detailed
@@ -106,6 +120,7 @@ export const resources = {
 - ❌ `BusinessWorkflows.md` - Wrong case convention
 
 ### Organize by Business Unit
+
 ```
 resources/
 ├── vitracoat/
@@ -123,11 +138,12 @@ resources/
 ## 🧪 Testing and Validation
 
 ### Simple Testing Approach
+
 ```javascript
 // Test that all resources load correctly
-import { resources } from './resources/index.js';
+import { resources } from "./resources/index.js";
 
-Object.keys(resources).forEach(key => {
+Object.keys(resources).forEach((key) => {
   try {
     const content = resources[key]();
     console.log(`✅ ${key}: ${content.length} characters`);
@@ -138,6 +154,7 @@ Object.keys(resources).forEach(key => {
 ```
 
 ### MCP Server Test
+
 ```bash
 # Test server starts without errors
 timeout 5s node index.js 2>&1 | grep "running"
@@ -146,6 +163,7 @@ timeout 5s node index.js 2>&1 | grep "running"
 ## 🎯 Examples from Vitracoat Implementation
 
 ### Successful Resource Structure
+
 ```
 resources/vitracoat/
 ├── overview.md                    # Project overview
@@ -157,25 +175,34 @@ resources/vitracoat/
 ```
 
 ### Resource Index Implementation
+
 ```javascript
 export const resources = {
-  'vitracoat/overview': loadMarkdown('vitracoat/overview.md'),
-  'vitracoat/business-workflows': loadMarkdown('vitracoat/business-workflows.md'),
-  'vitracoat/configuration-management': loadMarkdown('vitracoat/configuration-management.md'),
-  'vitracoat/laboratory-business-rules': loadMarkdown('vitracoat/laboratory-business-rules.md'),
-  'vitracoat/testing-protocols': loadMarkdown('vitracoat/testing-protocols.md'),
-  'vitracoat/request-forms': loadMarkdown('vitracoat/request-forms.md'),
+  "vitracoat/overview": loadMarkdown("vitracoat/overview.md"),
+  "vitracoat/business-workflows": loadMarkdown(
+    "vitracoat/business-workflows.md",
+  ),
+  "vitracoat/configuration-management": loadMarkdown(
+    "vitracoat/configuration-management.md",
+  ),
+  "vitracoat/laboratory-business-rules": loadMarkdown(
+    "vitracoat/laboratory-business-rules.md",
+  ),
+  "vitracoat/testing-protocols": loadMarkdown("vitracoat/testing-protocols.md"),
+  "vitracoat/request-forms": loadMarkdown("vitracoat/request-forms.md"),
 };
 ```
 
 ### Auto-Generated Results
-- `vitracoat/overview` → "Vitracoat - Overview" 
+
+- `vitracoat/overview` → "Vitracoat - Overview"
 - `vitracoat/business-workflows` → "Vitracoat - Business Workflows"
 - `vitracoat/configuration-management` → "Vitracoat - Configuration Management"
 
 ## 🚀 Benefits of Simplified Approach
 
 ### Advantages
+
 1. **No Redundancy** - Single source of truth in `resources/index.js`
 2. **Explicit Names** - File names directly reflect content
 3. **Auto-Generated Metadata** - No manual manifest maintenance
@@ -184,7 +211,9 @@ export const resources = {
 6. **Pure Markdown** - No JavaScript wrappers needed
 
 ### Migration from Complex Systems
+
 If migrating from systems with separate manifests:
+
 1. Keep all `.md` files in business unit folders
 2. Remove redundant `resource-manifest.js` files
 3. Update `resources/index.js` to use `loadMarkdown()` pattern
@@ -193,32 +222,63 @@ If migrating from systems with separate manifests:
 ## 🔧 Maintenance Guidelines
 
 ### Adding New Resources
+
 1. Create descriptive `.md` file in appropriate business unit folder
 2. Add entry to `resources/index.js` using `loadMarkdown()` pattern
 3. Test that resource loads correctly
 4. Done! Metadata is auto-generated
 
 ### Adding New Business Units
+
 1. Create new folder in `resources/` (e.g., `resources/manufacturing/`)
 2. Add `.md` files with good descriptive names
 3. Update `resources/index.js` with new entries
 4. System automatically handles the rest
 
 ### MCP Documentation Agent Synchronization
+
 - **Content patterns** and **cross-server coordination** are managed by the `mcp-documentation-manager` agent
 - For complex documentation updates or pattern standardization, use the specialized agent
 - The agent follows the MANDATORY 4-step process for MCP documentation integrity
 - Agent handles content classification between servers and ensures ecosystem consistency
 
 ### Best Practices
+
 - **Consistent naming**: Always use kebab-case
 - **Descriptive files**: File names should explain content
 - **Logical organization**: Group related resources in business unit folders
 - **Test regularly**: Verify resources load correctly after changes
 - **Use the agent**: For cross-server updates and pattern management
 
+## **🚨 CRITICAL: Agent Instructions Location**
+
+### **MCP Documentation Manager Agent**
+
+**Agent instructions are stored in:** `/Users/emilio/.claude/agents/mcp-documentation-manager.md`
+
+**This file contains:**
+
+- Agent metadata (name, description, model, color)
+- Critical directory navigation instructions
+- Two-step verification system templates
+- Form/Page pattern structure requirements
+- Bundle architecture rules
+- Content classification guidelines
+
+**⚠️ IMPORTANT: When updating agent behavior, ALWAYS update the agent's own .md file, not just the MCP server documentation. The agent reads its instructions from its own file at `/Users/emilio/.claude/agents/mcp-documentation-manager.md`**
+
+**Common errors fixed by proper agent instructions:**
+
+- ❌ Agent getting lost in wrong directories (../../Dreaming)
+- ❌ Agent creating .js files instead of .md files in business-units
+- ❌ Agent creating overly long narrative documentation
+- ✅ Proper navigation to `/Users/emilio/Development/Dreaming/mcp-servers`
+- ✅ Creating structured .md files with Form/Page patterns
+- ✅ Following exact documentation structure templates
+
 ---
 
 **Remember: Good file names are the foundation of a maintainable MCP server. When in doubt, choose clarity over brevity.**
 
 **The goal is simplicity, explicitness, and maintainability. Avoid complex configurations and embrace the power of descriptive naming.**
+
