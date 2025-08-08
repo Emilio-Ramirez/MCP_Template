@@ -1037,6 +1037,10 @@ export default function UserForm({ initialData }: UserFormProps) {
 }
 \`\`\`
 
+### **Dynamic Multi-Step Form Template**
+
+**CRITICAL**: For forms with dynamic steps that change based on user selections, see the **Dynamic Multi-Step Form Pattern** documentation (`form-bundle/templates/dynamic-multi-step-form-pattern.js`). This pattern is MANDATORY for forms like VLWR where test selections dynamically add configuration steps.
+
 ### **Multi-Step Form Template (Request Form Pattern):**
 
 \`\`\`typescript

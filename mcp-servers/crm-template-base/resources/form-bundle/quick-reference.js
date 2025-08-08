@@ -149,5 +149,55 @@ import { Button } from '@/components/ui/button'
 
 ---
 
-**For detailed patterns**: Request specific components like \`input-patterns\`, \`validation-patterns\`, etc.
+## Dynamic Multi-Step Form Quick Reference
+
+### Dynamic Step Configuration
+\`\`\`typescript
+// CRITICAL: Steps must have 'key' AND 'name' properties
+const steps = [
+  { id: 1, key: 'basic_info', name: 'Basic Information', description: '...' }
+];
+\`\`\`
+
+### Test Selection Pattern
+\`\`\`typescript
+// Field naming: {prefix}Test_{test_id}
+<FormField
+  name="vlwrTest_salt_fog"
+  render={({ field }) => (
+    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+      <FormControl>
+        <Switch checked={field.value || false} onCheckedChange={field.onChange} />
+      </FormControl>
+    </FormItem>
+  )}
+/>
+\`\`\`
+
+### Dynamic Step Generation
+\`\`\`typescript
+// CRITICAL: Watch ALL form values for reactivity
+const formValues = form.watch();
+const steps = useMemo(() => getSteps(form, t), [formValues, t]);
+\`\`\`
+
+### Step Content Rendering
+\`\`\`typescript
+// CRITICAL: Use step.key NOT step.name for routing
+switch (currentStep?.key) {
+  case 'vlwr_salt_fog_config':
+    return <VLWRSaltFogConfigStep form={form} />;
+}
+\`\`\`
+
+### Dynamic Step Component Pattern
+\`\`\`typescript
+<Card>
+  <CardContent className="pt-6"> {/* No CardHeader */}
+    {/* Field order: Number → Text → Select → Boolean → Textarea */}
+  </CardContent>
+</Card>
+\`\`\`
+
+**For detailed patterns**: Request specific components like \`input-patterns\`, \`validation-patterns\`, or \`dynamic-multi-step-form-pattern\`.
 `;
