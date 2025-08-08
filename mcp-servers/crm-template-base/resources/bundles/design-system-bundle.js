@@ -223,12 +223,111 @@ Refer to the Design System Bundle for all button styling:
 - Proper font weights for emphasis
 - Accessible text contrast ratios
 
+## Import Cleanliness Patterns
+
+### 1. Icon Import Patterns
+#### ❌ WRONG - Causes unused import warnings:
+\`\`\`typescript
+import {
+  AlertTriangle,  // REMOVE if not used in JSX
+  CheckCircle,
+  Clock,         // REMOVE if not used in JSX  
+  Globe,
+  MapPin,
+  XCircle
+} from 'lucide-react';
+\`\`\`
+
+#### ✅ CORRECT - Only import what's actually used:
+\`\`\`typescript
+import {
+  CheckCircle,
+  Globe,
+  MapPin,
+  XCircle
+} from 'lucide-react';
+\`\`\`
+
+### 2. Component Import Patterns
+#### ❌ WRONG - Badge imports not used:
+\`\`\`typescript
+import { CountryBadge } from './country-badge';
+import { StatusBadge } from './status-badge';
+// Then never used in JSX
+\`\`\`
+
+#### ✅ CORRECT - Remove unused badge imports:
+\`\`\`typescript
+// Only import what's actually rendered
+\`\`\`
+
+### 3. UI Component Import Patterns
+#### ❌ WRONG - Dropdown components imported but not used:
+\`\`\`typescript
+import {
+  DropdownMenu,
+  DropdownMenuContent,  // REMOVE if no dropdown content
+  DropdownMenuItem,     // REMOVE if no menu items
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+\`\`\`
+
+#### ✅ CORRECT - Only import active dropdown parts:
+\`\`\`typescript
+import {
+  DropdownMenu,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+\`\`\`
+
+### 4. Type Import Patterns
+#### ❌ WRONG - Type imports not used for typing:
+\`\`\`typescript
+import { Client, User } from '@/constants/data';
+// Then never used as types, only data is used
+\`\`\`
+
+#### ✅ CORRECT - Import only needed types:
+\`\`\`typescript
+import { clientsData } from '@/constants/data';
+// Don't import types unless used for type annotations
+\`\`\`
+
+### 5. Utility Import Patterns
+#### ❌ WRONG - Utility imports not used:
+\`\`\`typescript
+import { cn } from '@/lib/utils';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+// Then never used in component
+\`\`\`
+
+#### ✅ CORRECT - Remove unused utilities:
+\`\`\`typescript
+// Only import utilities actually used in component
+\`\`\`
+
+### MANDATORY Import Validation Checklist
+Before completing any component implementation:
+
+1. **Icon Validation**: ✅ Every imported icon must be used in JSX
+2. **Component Validation**: ✅ Every imported component must be rendered
+3. **Type Validation**: ✅ Every imported type must be used in type annotations
+4. **Utility Validation**: ✅ Every imported utility must be called in code
+
+### Import Audit Process
+1. **Pre-implementation**: Review all imports before adding them
+2. **During implementation**: Only import as needed for current functionality
+3. **Post-implementation**: Remove any imports that became unused during development
+4. **Lint validation**: Run \`npm run lint\` to catch unused imports
+
 ## Best Practices
 - Always reference this bundle from other bundles
 - Never override design system patterns in individual bundles
 - Maintain consistency across all implementations
 - Update this bundle to affect all components system-wide
 - Test changes across all bundles that reference this system
+- **CRITICAL**: Follow import cleanliness patterns to prevent lint warnings
 
 ## Common Mistakes to Avoid
 - Defining custom input styles in individual bundles
@@ -236,6 +335,13 @@ Refer to the Design System Bundle for all button styling:
 - Using colors not defined in the color system
 - Breaking the typography hierarchy
 - Inconsistent spacing patterns
+- **CRITICAL Import Mistakes:**
+  - Importing icons that are never used in JSX
+  - Importing components that are never rendered
+  - Importing types that are never used for type annotations
+  - Importing utilities that are never called
+  - Adding imports speculatively "just in case"
+  - Not cleaning up imports after refactoring
 
 ---
 

@@ -11,13 +11,15 @@ import { PageContainer } from '@/components/page-container'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
 
-// Standard page structure for ALL forms
+// Standard page structure for ALL forms (Commercial Requests Pattern)
 <PageContainer scrollable={true}>
   <div className="flex flex-1 flex-col space-y-4">
-    <Heading
-      title={t('page_title')}
-      description={t('page_description')}
-    />
+    <div className="flex items-start justify-between">
+      <Heading
+        title={t('page_title')}
+        description={t('page_description')}
+      />
+    </div>
     <Separator />
     {/* Form implementation here */}
   </div>
@@ -76,9 +78,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 ## Implementation Checklist
 
-### ✅ Page Structure
+### ✅ Page Structure (Commercial Requests Standard)
 - [ ] PageContainer with scrollable={true}
 - [ ] Standard layout: div.flex.flex-1.flex-col.space-y-4
+- [ ] Header wrapper: div.flex.items-start.justify-between
 - [ ] Heading component with title and description
 - [ ] Separator between heading and form
 - [ ] Card wrapper with proper className="mx-auto w-full"

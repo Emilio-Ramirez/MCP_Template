@@ -70,31 +70,16 @@ const useRequestForm = <T>() => {
   return { formData, updateFormData, resetFormData }
 }
 
-// Step indicator component
-const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) => (
-  <div className="flex items-center justify-center space-x-4 mb-8">
-    {Array.from({ length: totalSteps }, (_, index) => (
-      <div key={index} className="flex items-center">
-        <div className={\`w-8 h-8 rounded-full flex items-center justify-center \${
-          index <= currentStep 
-            ? 'bg-primary text-primary-foreground' 
-            : 'bg-muted text-muted-foreground'
-        }\`}>
-          {index < currentStep ? (
-            <IconCheck className="w-4 h-4" />
-          ) : (
-            index + 1
-          )}
-        </div>
-        {index < totalSteps - 1 && (
-          <div className={\`w-12 h-1 \${
-            index < currentStep ? 'bg-primary' : 'bg-muted'
-          }\`} />
-        )}
-      </div>
-    ))}
-  </div>
-)
+// Import the comprehensive StepIndicator component
+// IMPORTANT: See form-bundle/components/step-indicator.js for complete implementation
+import { StepIndicator } from '@/features/[feature-name]/components/StepIndicator'
+
+// Define steps configuration for StepIndicator
+const steps = [
+  { id: 1, name: "Basic Information", description: "Enter your name and email address" },
+  { id: 2, name: "Additional Details", description: "Provide phone and company information" },
+  { id: 3, name: "Preferences", description: "Set your notification preferences" }
+]
 
 export default function MultiStepFormPage() {
   const t = useTranslations('Forms')
@@ -175,7 +160,14 @@ export default function MultiStepFormPage() {
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
+                <StepIndicator 
+                  steps={steps}
+                  currentStep={currentStep}
+                  onStepClick={(stepIndex) => {
+                    // Optional: Enable step navigation (can be customized based on validation)
+                    // goToStep(stepIndex)
+                  }}
+                />
                 
                 {/* Step 1: Basic Information */}
                 {currentStep === 0 && (
@@ -414,6 +406,85 @@ const useRequestForm = <T>() => {
 }
 \`\`\`
 
+## Advanced Pattern: Dynamic Step Generation (TLWR Test Pattern)
+
+### Revolutionary Dynamic Form Growth
+For advanced use cases where form steps are added based on user selections, implement the dynamic test pattern:
+
+\`\`\`typescript
+// Dynamic step generation based on form.watch() values
+export function useFormSteps({ form }: { form: any }) {
+  const t = useTranslations('TLWR');
+  
+  const steps = useMemo(() => {
+    const baseSteps = [
+      { id: 1, key: 'basic_info', name: 'Basic Information', description: 'Laboratory and customer details' },
+      { id: 2, key: 'request_type', name: 'Request Type', description: 'Select request type and details' },
+      { id: 3, key: 'tlwr_test_selection', name: 'Test Selection', description: 'Select TLWR tests to perform' }
+    ];
+
+    let pageId = 4;
+
+    // Dynamic step addition based on selections
+    if (form.watch('tlwrTest_salt_fog')) {
+      baseSteps.push({ 
+        id: pageId++,
+        key: 'tlwr_salt_fog_config',
+        name: 'Salt Fog Config', 
+        description: 'Salt fog test configuration'
+      });
+    }
+
+    if (form.watch('tlwrTest_quv')) {
+      baseSteps.push({ 
+        id: pageId++,
+        key: 'tlwr_quv_config',
+        name: 'QUV Config', 
+        description: 'QUV test configuration'
+      });
+    }
+
+    // Add final step
+    baseSteps.push({ 
+      id: pageId++,
+      key: 'additional_info',
+      name: 'Additional Information', 
+      description: 'Final details and requirements'
+    });
+
+    return baseSteps;
+  }, [
+    form.watch('tlwrTest_salt_fog'),
+    form.watch('tlwrTest_quv'),
+    t
+  ]);
+
+  return { steps, /* other hooks */ };
+}
+
+// Component routing based on step keys
+const renderStepContent = () => {
+  const stepKey = stepNavigation.currentStepInfo?.key;
+  
+  switch (stepKey) {
+    case 'tlwr_test_selection':
+      return <TLWRPage3Step form={form} />; // Only switches
+    case 'tlwr_salt_fog_config':
+      return <TLWRSaltFogTestStep form={form} />; // Dedicated page
+    case 'tlwr_quv_config':
+      return <TLWRQUVTestStep form={form} />; // Dedicated page
+    default:
+      return <BasicStep form={form} />;
+  }
+};
+\`\`\`
+
+**Key Pattern Benefits:**
+- Form grows from 5/6 to 8+ pages based on user selections
+- Clean separation: Selection vs. Configuration 
+- Each test gets its own dedicated component page
+- Progressive form building based on user choices
+
 ## Customization Guide
 
 ### Adding New Steps
@@ -453,7 +524,17 @@ const stepFields = {
 )}
 \`\`\`
 
+## StepIndicator Component
+
+The StepIndicator component provides comprehensive step visualization with:
+- Responsive design (desktop with arrows, mobile with dots)
+- Progress header with animated progress bar
+- Interactive navigation with optional onClick handlers
+- Complete state management (completed, current, future steps)
+
+**IMPORTANT**: See `form-bundle/components/step-indicator.js` for the complete StepIndicator implementation with all features, props documentation, and usage examples.
+
 ---
 
-**Usage**: Copy this template and customize the steps, schema, and validation for your specific multi-step form needs.
+**Usage**: Copy this template and customize the steps, schema, and validation for your specific multi-step form needs. Ensure you include the StepIndicator component from the components directory.
 `;

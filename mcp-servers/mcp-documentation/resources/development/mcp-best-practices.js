@@ -80,6 +80,137 @@ export default `# MCP Development Best Practices
 - **Encryption**: Use encryption for sensitive data transmission
 - **Privacy**: Respect user privacy in resource content
 
+## Agent Integration Patterns
+
+### Agent Instruction Optimization
+**Discovery**: Massive agent instruction reduction (750+ lines → 58 lines) while improving performance.
+
+**Optimization Strategies**:
+- **Focus on critical behaviors**: Eliminate redundant explanations and focus on essential decision points
+- **Procedural clarity**: Clear step-by-step processes instead of verbose explanations
+- **Context-aware responses**: Design instructions that adapt to request type and context
+- **Error prevention**: Target common failure patterns with precise behavioral guidance
+
+**Key Learnings**:
+- Verbose instructions don't improve performance - they create cognitive overhead
+- Specific behavioral patterns (navigation, file operations, decision trees) are more effective than general guidelines
+- Agent performance improves dramatically when instructions focus on "what to do" rather than "why to do it"
+
+### Content Delivery Patterns
+
+**Two-Phase Developer Workflow Discovery**:
+1. **Discovery Phase**: Developer requests overview/exploration ("Show me form bundle")
+   - Agent provides architectural context and structure
+   - Includes pattern explanations and decision rationale
+   - Focuses on understanding and planning
+2. **Implementation Phase**: Developer requests specific code ("I need TypeScript code for X")
+   - Agent provides raw, immediately usable code
+   - Minimal explanation, maximum implementation value
+   - Direct copy-paste ready solutions
+
+**Content Delivery Rules**:
+- **Bundle Overview Requests**: Return architectural context + patterns + structure explanation
+- **Raw Code Requests**: Return implementation code with minimal wrapper text
+- **Discovery Requests**: Focus on helping developer understand available options
+- **Implementation Requests**: Focus on providing working, tested code examples
+
+### Developer Experience Design Principles
+
+**Request Classification**:
+```
+📥 INCOMING REQUEST
+│
+├── 🔍 EXPLORATION REQUEST? ("What patterns exist?", "Show me options")
+│   └── → Provide comprehensive architectural context
+│       ├── Available patterns and their use cases  
+│       ├── Decision framework for pattern selection
+│       └── Implementation planning guidance
+│
+└── ⚡ IMPLEMENTATION REQUEST? ("I need code for X", "Give me TypeScript")
+    └── → Provide raw implementation code
+        ├── Working code examples ready for use
+        ├── Minimal explanatory wrapper
+        └── Focus on immediate productivity
+```
+
+**Developer Experience Optimization**:
+- **Context Switching Reduction**: Provide complete packages that minimize back-and-forth
+- **Progressive Disclosure**: Start with overview, drill down to implementation on demand
+- **Copy-Paste Optimization**: Ensure code examples work without modification
+- **Decision Support**: Help developers choose appropriate patterns before implementation
+
+### MCP Resource Structure Optimization
+
+**Discovered Patterns**:
+- **Main Bundles**: Core implementation packages (design-system-bundle, table-page-bundle, form-bundle)
+- **Bundle Templates**: Quick-start templates extracted from main bundles
+- **Specialized Components**: Focused implementations for specific use cases
+- **Cross-Bundle Dependencies**: Shared foundation patterns (design-system-bundle as dependency)
+
+**Resource Organization Best Practices**:
+```
+bundles/
+├── [system]-bundle.js           # Complete implementation package
+│   ├── Overview & Architecture  # Context for discovery phase
+│   ├── Implementation Patterns  # Code for implementation phase
+│   ├── Templates & Examples     # Ready-to-use starting points
+│   └── Integration Guidelines   # Connection to other bundles
+│
+├── templates/
+│   └── [system]-quick-start.js  # Extracted quick-start patterns
+│
+└── components/
+    └── [specific-feature].js    # Specialized implementations
+```
+
+**Bundle Architecture Rules**:
+- **Self-Contained**: Each bundle includes everything needed for its domain
+- **Dependency Declaration**: Clear references to required shared bundles (design-system)
+- **Template Extraction**: Quick-start patterns can be extracted for rapid prototyping
+- **Progressive Complexity**: Simple templates → full bundles → specialized components
+
+### Root Cause Analysis Methodology
+
+**Agent Debugging Framework**:
+1. **Instruction Analysis**: Review agent instructions for clarity and specificity
+2. **Pattern Matching**: Identify if agent is following expected decision patterns
+3. **Content Structure Review**: Verify MCP resources provide appropriate content for request types
+4. **Integration Testing**: Test agent performance across discovery → implementation workflow
+5. **Performance Measurement**: Compare response quality against developer productivity metrics
+
+**Common Issues and Solutions**:
+- **Issue**: Agent provides summaries when developers need raw code
+  - **Solution**: Implement request classification pattern for content delivery
+- **Issue**: Agent gets confused by overly complex instructions
+  - **Solution**: Reduce instruction complexity, focus on behavioral patterns
+- **Issue**: Developers can't find appropriate patterns
+  - **Solution**: Improve bundle overview sections with clear pattern categorization
+- **Issue**: Implementation code doesn't work out-of-the-box  
+  - **Solution**: Test all code examples and ensure dependency declarations are complete
+
+**Performance Indicators**:
+- **Discovery Efficiency**: Time from question to pattern understanding
+- **Implementation Speed**: Time from pattern selection to working code
+- **Context Retention**: Agent maintains context across discovery → implementation phases
+- **Code Quality**: Generated implementations work without modification
+- **Developer Satisfaction**: Reduced frustration, increased productivity
+
+### Agent-MCP Ecosystem Integration
+
+**Best Practices for Agent-Resource Alignment**:
+- **Resource Structure**: Organize MCP resources to support both discovery and implementation workflows
+- **Content Density**: Balance comprehensive information with focused implementation guidance  
+- **Cross-References**: Ensure smooth navigation between related patterns and bundles
+- **Update Coordination**: Keep agent instructions synchronized with MCP resource organization
+- **Testing Integration**: Validate agent performance against actual developer workflows
+
+**Ecosystem Health Indicators**:
+- Agent can navigate resource structure without confusion
+- Developers can move from exploration to implementation seamlessly
+- MCP resources provide appropriate content depth for request context
+- Cross-server references work correctly and add value
+- Performance remains optimal as resource count scales
+
 ## Integration Patterns
 
 ### Cross-Server Communication

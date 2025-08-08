@@ -54,29 +54,184 @@ Unified layout and spacing patterns ensuring responsive design and consistent sp
 
 ## Multi-Step Navigation Layout
 
-### Step Indicator Pattern
+### StepIndicator Component (COMPREHENSIVE PATTERN)
 \`\`\`typescript
-const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) => (
-  <div className="flex items-center justify-center space-x-4 mb-8">
-    {Array.from({ length: totalSteps }, (_, index) => (
-      <div key={index} className="flex items-center">
-        <div className={\`w-8 h-8 rounded-full flex items-center justify-center \${
-          index <= currentStep 
-            ? 'bg-primary text-primary-foreground' 
-            : 'bg-muted text-muted-foreground'
-        }\`}>
-          {index + 1}
+'use client';
+
+import React from 'react';
+import { Check, Circle, ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+
+interface Step {
+  id: number;
+  name: string;
+  description: string;
+}
+
+interface StepIndicatorProps {
+  steps: Step[];
+  currentStep: number;
+  onStepClick?: (stepIndex: number) => void;
+  className?: string;
+}
+
+export function StepIndicator({ 
+  steps, 
+  currentStep, 
+  onStepClick,
+  className 
+}: StepIndicatorProps) {
+  return (
+    <div className={cn("mb-8", className)}>
+      {/* Progress Header - SCALABLE DESIGN */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            {/* Step Title + Description on LEFT */}
+            <h2 className="text-xl font-semibold">
+              {steps[currentStep]?.name || 'Form Step'}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {steps[currentStep]?.description}
+            </p>
+          </div>
+          {/* Step Counter on RIGHT */}
+          <div className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+            Step {currentStep + 1} of {steps.length}
+          </div>
         </div>
-        {index < totalSteps - 1 && (
-          <div className={\`w-12 h-1 \${
-            index < currentStep ? 'bg-primary' : 'bg-muted'
-          }\`} />
-        )}
+        
+        {/* Progress Bar - Full Width */}
+        <div className="w-full bg-muted rounded-full h-2">
+          <div 
+            className="bg-primary h-2 rounded-full transition-all duration-300 ease-in-out"
+            style={{ width: \`\${((currentStep + 1) / steps.length) * 100}%\` }}
+          />
+        </div>
       </div>
-    ))}
-  </div>
-)
+
+      {/* Desktop Navigation - ICON CIRCLES WITH ARROWS (NOT TABS) */}
+      <div className="hidden md:block">
+        <div className="flex items-center justify-between space-x-2">
+          {steps.map((step, index) => (
+            <React.Fragment key={step.id}>
+              <div className="flex items-center space-x-3">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => onStepClick?.(index)}
+                  disabled={!onStepClick}
+                  className={cn(
+                    "flex items-center space-x-2 p-2 rounded-lg transition-colors min-w-0",
+                    index < currentStep && "text-primary",
+                    index === currentStep && "bg-primary/10 text-primary",
+                    index > currentStep && "text-muted-foreground"
+                  )}
+                >
+                  {/* Step Icon Circle */}
+                  <div
+                    className={cn(
+                      "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-colors flex-shrink-0",
+                      index < currentStep && "bg-primary border-primary text-primary-foreground",
+                      index === currentStep && "border-primary text-primary",
+                      index > currentStep && "border-muted text-muted-foreground"
+                    )}
+                  >
+                    {index < currentStep ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <Circle className="w-4 h-4" />
+                    )}
+                  </div>
+
+                  {/* Step Info - Truncated for Scalability */}
+                  <div className="text-left min-w-0">
+                    <div className={cn(
+                      "text-sm font-medium truncate",
+                      index <= currentStep ? "text-foreground" : "text-muted-foreground"
+                    )}>
+                      {step.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground truncate">
+                      {step.description}
+                    </div>
+                  </div>
+                </Button>
+              </div>
+
+              {/* Arrow Separator */}
+              {index < steps.length - 1 && (
+                <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Navigation - CIRCULAR NUMBERED DOTS */}
+      <div className="md:hidden">
+        <div className="flex items-center justify-center space-x-1">
+          {steps.map((step, index) => (
+            <Button
+              key={step.id}
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onStepClick?.(index)}
+              disabled={!onStepClick}
+              className={cn(
+                "w-8 h-8 p-0 rounded-full",
+                index < currentStep && "bg-primary text-primary-foreground",
+                index === currentStep && "bg-primary/20 text-primary border border-primary",
+                index > currentStep && "bg-muted text-muted-foreground"
+              )}
+            >
+              {index < currentStep ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <span className="text-xs font-medium">{index + 1}</span>
+              )}
+            </Button>
+          ))}
+        </div>
+        
+        {/* Current Step Info (Mobile) */}
+        <div className="text-center mt-2">
+          <div className="text-xs text-muted-foreground">
+            {steps[currentStep]?.description}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 \`\`\`
+
+### StepIndicator Usage Example
+\`\`\`typescript
+const steps = [
+  { id: 1, name: "Basic Information", description: "Enter basic details" },
+  { id: 2, name: "Configuration", description: "Set preferences" },
+  { id: 3, name: "Review", description: "Confirm all details" }
+];
+
+<StepIndicator 
+  steps={steps}
+  currentStep={currentStep}
+  onStepClick={(stepIndex) => setCurrentStep(stepIndex)}
+/>
+\`\`\`
+
+### StepIndicator Features
+- **Progress Header**: Shows current step title, description, and progress counter
+- **Progress Bar**: Visual completion percentage indicator
+- **Desktop Navigation**: Icon circles with arrows, truncated text for scalability
+- **Mobile Navigation**: Numbered dots with description below
+- **Interactive**: Optional onClick for step navigation
+- **Responsive**: Different layouts for desktop and mobile
+- **Accessible**: Proper button states and keyboard navigation
+- **Scalable**: Text truncation prevents layout breaks with long step names
 
 ### Step Content Layout
 \`\`\`typescript

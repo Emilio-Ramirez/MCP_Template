@@ -45,7 +45,7 @@ export const RESOURCE_MANIFEST = [
   {
     uri: 'mcp-meta://development/mcp-best-practices',
     name: 'MCP Development Best Practices',
-    description: 'Best practices for developing MCP servers and resources',
+    description: 'Best practices for developing MCP servers and resources, including agent integration patterns and optimization strategies',
     mimeType: 'text/markdown',
     path: 'development/mcp-best-practices.js'
   },
@@ -146,5 +146,61 @@ export const RESOURCE_MANIFEST = [
     description: 'Rapid deployment guide for getting all IBSO MCP servers running in 2 minutes',
     mimeType: 'text/markdown',
     path: 'deployment/quick-start-deployment.js'
+  },
+  {
+    uri: 'mcp-meta://bundles/business-unit-documentation-bundle',
+    name: 'Business Unit Documentation Bundle - Component-First Architecture',
+    description: 'Comprehensive documentation patterns for the 6 standardized business unit documentation types',
+    mimeType: 'text/markdown',
+    path: 'bundles/business-unit-documentation-bundle.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/overview-pattern',
+    name: 'Overview Documentation Pattern',
+    description: 'Pattern for business unit overview documentation with context and architecture',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/overview-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/dashboard-pattern',
+    name: 'Dashboard Documentation Pattern',
+    description: 'Pattern for analytics, KPIs, and business intelligence documentation',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/dashboard-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/auth-pattern',
+    name: 'Auth Documentation Pattern',
+    description: 'Pattern for authentication, authorization, and security documentation',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/auth-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/configuration-pattern',
+    name: 'Configuration Documentation Pattern',
+    description: 'Pattern for system settings and administrative interface documentation',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/configuration-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/form-page-pattern',
+    name: 'Form/Page Documentation Pattern - ESTABLISHED',
+    description: 'The established pattern for interactive forms and data entry interfaces with 95.6% consistency requirement',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/form-page-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/components/special-pattern',
+    name: 'Special Documentation Pattern',
+    description: 'Flexible pattern for unique business unit features that do not fit standard types',
+    mimeType: 'text/markdown',
+    path: 'bundles/components/special-documentation-pattern.js'
+  },
+  {
+    uri: 'mcp-meta://business-unit-bundle/quick-reference',
+    name: 'Business Unit Documentation - Quick Reference',
+    description: 'Quick reference guide with templates and common patterns for all 6 documentation types',
+    mimeType: 'text/markdown',
+    path: 'bundles/business-unit-documentation-quick-reference.js'
   }
 ];
