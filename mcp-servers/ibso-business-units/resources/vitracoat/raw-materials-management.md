@@ -121,35 +121,17 @@ Available actions in the raw materials interface:
 
 The system supports the following chemistry types for powder coating formulations:
 
-- **Epoxy** - Epoxy-based coatings
-- **Hybrid** - Hybrid chemistry systems
-- **Polyester TGIC** - TGIC-cured polyester
-- **Polyester non_TGIC** - Non-TGIC polyester systems
-- **Polyester_Acrylic** - Polyester-acrylic blends
-- **Urethane** - Urethane-based systems
-- **SD Polyester TGIC** - Super durable TGIC polyester
-- **SD Polyester non_TGIC** - Super durable non-TGIC polyester
-- **SD Polyester_Acrylic** - Super durable polyester-acrylic
-- **SD Urethane** - Super durable urethane
-- **Fluoropolymer** - Fluoropolymer coatings
-- **Hi-Temp Silicone** - High-temperature silicone systems
+*Chemistry types are managed in System Management → Chemistry & Materials → Chemistry Types*
+
+Supported chemistries include epoxy, hybrid systems, various polyester types, urethane, fluoropolymer, and high-temperature silicone systems.
 
 ## Material Types
 
 The system categorizes materials into the following types:
 
-- **ADITIVO** - Additives for special properties
-- **ALUMINIO** - Aluminum materials
-- **BRONCE** - Bronze materials
-- **CARGA** - Fillers and extenders
-- **CERA** - Wax additives
-- **INHIBIDOR DE CORROSION: FERROZO** - Ferrous corrosion inhibitors
-- **INHIBIDOR DE CORROSION: NO FERROZO** - Non-ferrous corrosion inhibitors
-- **MICA** - Mica materials
-- **N/A** - Not applicable/other category
-- **PIGMENTO** - Pigments and colorants
-- **RESINA** - Resins and binders
-- **ZINC** - Zinc materials
+*Material type categories are configurable in System Management → Colors & Finishes → Raw Material Types*
+
+Current categories include additives, metals (aluminum, bronze, zinc), fillers, wax modifiers, corrosion inhibitors, mica effects, pigments, and resins.
 
 ## Example Material Entry
 

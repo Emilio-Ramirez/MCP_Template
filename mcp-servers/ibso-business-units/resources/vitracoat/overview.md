@@ -77,10 +77,12 @@ Scale quantities → Production batch → Delivery
 - **Formulation vs Product**: Formulations are development entities, Products are approved commercial items
 
 ### Status Progression
-- LWR statuses: Pending → In Progress → Testing → Approved → Complete
-- Formulation statuses: Working → Ready for Testing → Testing → Tested → Approved → Production
-- TLWR statuses: Created → In Progress → Results Added → Complete
-- VLWR statuses: Created → Testing → Results Added → Validated
+*Status types and progressions are configurable in System Management → Application Systems → Workflow Status Types*
+
+- **LWR statuses**: Pending → In Progress → Testing → Approved → Complete
+- **Formulation statuses**: Working → Ready for Testing → Testing → Tested → Approved → Production  
+- **TLWR statuses**: Created → In Progress → Results Added → Complete
+- **VLWR statuses**: Created → Testing → Results Added → Validated
 
 ## Integration Points
 

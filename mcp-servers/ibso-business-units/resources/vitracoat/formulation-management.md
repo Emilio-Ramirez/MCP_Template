@@ -104,7 +104,7 @@ Additional mixing materials for process enhancement:
 | ------------- | ------ | ------------------------------------------- | -------------------------- |
 | **System**    | String | Chemistry system used                       | `Epoxy`                    |
 | **# Orden**   | String | Order number for tracking                   | `108119`                   |
-| **Type MZ**   | Select | MZ type (MZ BONDEADA ,MZ MANUAL, MZ MOLIDA) | `MZ-1`                     |
+| **Type MZ**   | Select | *See System Management → Application Systems → Formulation Mix Types* | `MZ-1`                     |
 | **Base**      | Number | Grs of base material used in the mix        | `1000`                     |
 | **Materials** | Array  | List of materials used in the mix           | `["materia1", "materia2"]` |
 
@@ -141,6 +141,7 @@ Formulations can have the following statuses:
 
 | Status                | Description                           | Next Actions                |
 | --------------------- | ------------------------------------- | --------------------------- |
+*Status types are configurable in System Management → Application Systems → Workflow Status Types (Formulation category)*
 | **Working**           | Initial state, materials being filled | Save, Continue editing      |
 | **Ready for Testing** | Materials filled, awaiting TLWR       | Create TLWR                 |
 | **Testing**           | TLWR in progress                      | View TLWR status            |
