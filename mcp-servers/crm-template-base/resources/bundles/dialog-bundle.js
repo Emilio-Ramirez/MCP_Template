@@ -1,26 +1,26 @@
-export default `# Dialog Bundle - Component-First Architecture
+export default `# Dialog Bundle - Component-First Architecture (Enhanced)
 
 ## Overview
-Efficient dialog/modal implementation system organized by components for selective access. Claude Code can request specific patterns (confirmation, detail view, state management) without loading unnecessary context.
+Efficient dialog/modal implementation system featuring the optimal combined approach with superior responsive sizing, semantic Card structure, header actions, and modular organization. Claude Code can request specific enhanced patterns for 95%+ consistency.
 
 ## Available Components
 
-### Core Components (Shared Across All Dialog Types)
+### Core Components (Enhanced Patterns)
 - **foundation-patterns**: Core Dialog structure, Radix UI base, standard attributes
 - **confirmation-dialogs**: Alert, Block, Delete, and other confirmation patterns
-- **detail-modals**: Information display, card layouts, badge patterns
+- **detail-modals**: **[ENHANCED]** Information display with optimal responsive sizing, Card layouts, header actions, status badges
 - **specialized-dialogs**: Complex modals with forms, filters, multi-step flows
 - **state-management**: Dialog state, hydration, async patterns
 - **styling-patterns**: Animations, layouts, responsive design
 
-### Templates (Type-Specific)
+### Templates (Enhanced Type-Specific)
 - **simple-dialog**: Basic dialog template for quick implementations
 - **confirmation-template**: Complete confirmation dialog with actions
-- **detail-view-template**: Information display modal template
+- **detail-view-template**: **[ENHANCED]** Complete detail modal with optimal responsive sizing, Card structure, header actions, and sidebar
 - **critical-patterns**: Mandatory patterns for 95%+ consistency
 
 ### Quick Access
-- **quick-reference**: Most common dialog patterns cheat sheet
+- **quick-reference**: **[ENHANCED]** Most common dialog patterns with optimal combined approach
 
 ## How to Use This Bundle
 
@@ -59,17 +59,22 @@ For quick access:
 - \`mcp://crm-template-base/dialog-bundle/quick-reference\`
 
 ## Benefits
+- **Enhanced User Experience**: Optimal responsive sizing (95vw mobile, 85vw desktop, 80vw wide)
+- **Semantic Structure**: Card components for better HTML semantics and maintainability
+- **Quick Actions**: Header action buttons for immediate workflow access
+- **Status Visibility**: Prominent badges for instant status recognition
 - **Context Efficiency**: Get only what you need
-- **95%+ Consistency**: All components follow unified standards
-- **Pattern Reuse**: Shared components across dialog types
-- **Progressive Development**: Build incrementally
-- **Zero Fragmentation**: Single source of truth maintained
+- **95%+ Consistency**: All components follow unified enhanced standards
+- **Pattern Reuse**: Shared enhanced components across dialog types
+- **Progressive Development**: Build incrementally with proven patterns
 
 ## Success Metrics
+- **Enhanced Pattern**: Superior screen utilization + semantic structure
 - 70% faster development with focused components
 - Reduced context consumption by 75%
 - Maintained 95%+ dialog consistency
 - Improved Claude Code workflow efficiency
+- Better mobile responsiveness and accessibility
 
 ---
 

@@ -339,7 +339,6 @@ Requests progress through the following workflow statuses:
 *Status types are configurable in System Management → Application Systems → Workflow Status Types (Request category)*
 
 - **PENDING** - Initial submission awaiting assignment to formulator
-- **ASSIGNED** - Approved and assigned to laboratory formulator
 - **IN_PROCESS** - Active formulation development and testing in progress
 - **CLOSED** - Project completed
 

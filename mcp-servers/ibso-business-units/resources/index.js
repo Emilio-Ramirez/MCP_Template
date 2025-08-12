@@ -37,6 +37,19 @@ export const resources = {
   'vitracoat/messages': loadMarkdown('vitracoat/messages.md'),
   'vitracoat/dashboard': loadMarkdown('vitracoat/dashboard.md'),
   'vitracoat/auth': loadMarkdown('vitracoat/auth.md'),
+  
+  // DEFASA_CXP project resources - template placeholders
+  'defasa_cxp/overview': loadMarkdown('defasa_cxp/overview.md'),
+  'defasa_cxp/auth': loadMarkdown('defasa_cxp/auth.md'),
+  'defasa_cxp/dashboard': loadMarkdown('defasa_cxp/dashboard.md'),
+  'defasa_cxp/users-management': loadMarkdown('defasa_cxp/users-management.md'),
+  'defasa_cxp/clients-management': loadMarkdown('defasa_cxp/clients-management.md'),
+  'defasa_cxp/system-management': loadMarkdown('defasa_cxp/system-management.md'),
+  'defasa_cxp/notifications': loadMarkdown('defasa_cxp/notifications.md'),
+  'defasa_cxp/messages': loadMarkdown('defasa_cxp/messages.md'),
+  'defasa_cxp/request-management': loadMarkdown('defasa_cxp/request-management.md'),
+  'defasa_cxp/formulation-management': loadMarkdown('defasa_cxp/formulation-management.md'),
+  'defasa_cxp/raw-materials-management': loadMarkdown('defasa_cxp/raw-materials-management.md'),
 };
 
 // Export resource loader utility

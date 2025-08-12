@@ -278,6 +278,103 @@ If migrating from systems with separate manifests:
 
 ---
 
+## 🤖 AI Agent Orchestration System
+
+The MCP ecosystem uses a hierarchical agent system for code implementation to ensure proper separation of concerns and optimal performance:
+
+### Agent Roles and Responsibilities
+
+1. **Claude Code (Orchestrator)** - Strategic planning and supervision
+   - Creates implementation plans
+   - Delegates tasks to specialized agents
+   - Verifies completion and quality
+   - Maintains overall project coherence
+
+2. **mcp-code-architect** - ERP Template code implementation
+   - Works exclusively in ERP Template projects
+   - Executes micro-tasks (one objective at a time)
+   - Reports back after each task completion
+   - Never modifies MCP server files
+
+3. **mcp-documentation-manager** - MCP server documentation management
+   - Exclusive authority over MCP server files
+   - Maintains documentation consistency
+   - Follows MANDATORY 4-step process
+   - Ensures cross-server coordination
+
+### Critical Rules for Agent Interaction
+
+- **🚨 ONLY mcp-documentation-manager** can modify files in `/Users/emilio/Development/Dreaming/mcp-servers/`
+- **mcp-code-architect** works exclusively in ERP Template projects (never in MCP servers)
+- Use **micro-tasks** (one objective per task) to prevent context overload
+- Frequent reporting ensures visibility and prevents drift
+- Small context windows = better agent performance
+
+### Micro-Task Pattern
+
+The micro-task pattern ensures optimal agent performance:
+
+```
+Orchestrator → Creates micro-task plan
+    ↓
+Specialized Agent → Executes single task
+    ↓
+Report back → Orchestrator verifies
+    ↓
+Next micro-task → Continue cycle
+```
+
+### Implementation Guidelines
+
+**DO:**
+- ONE objective per agent task
+- ONE file modification maximum per task
+- Clear, specific task descriptions
+- Frequent status reports
+- Verify completion before next task
+
+**DON'T:**
+- Batch multiple objectives in one task
+- Modify multiple files simultaneously
+- Create vague or open-ended tasks
+- Skip verification steps
+- Mix responsibilities between agents
+
+### Example Workflow
+
+```
+User Request: "Add new business workflow documentation"
+
+1. Orchestrator Analysis:
+   - Identifies documentation update needed
+   - Determines correct agent (mcp-documentation-manager)
+   - Creates micro-task plan
+
+2. Micro-Task 1:
+   - Task: "Create workflow.md in vitracoat folder"
+   - Agent: mcp-documentation-manager
+   - Result: File created, report back
+
+3. Micro-Task 2:
+   - Task: "Update resources/index.js with new resource"
+   - Agent: mcp-documentation-manager
+   - Result: Index updated, report back
+
+4. Verification:
+   - Orchestrator confirms completion
+   - Tests resource loading
+   - Reports success to user
+```
+
+### Performance Optimization
+
+- **Context Management**: Keep each task focused to minimize context size
+- **Clear Boundaries**: Never cross agent responsibility boundaries
+- **Incremental Progress**: Small steps ensure consistent forward movement
+- **Error Recovery**: Easier to identify and fix issues in micro-tasks
+
+---
+
 **Remember: Good file names are the foundation of a maintainable MCP server. When in doubt, choose clarity over brevity.**
 
 **The goal is simplicity, explicitness, and maintainability. Avoid complex configurations and embrace the power of descriptive naming.**
